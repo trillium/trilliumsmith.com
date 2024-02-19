@@ -12,7 +12,7 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": "20.11.1"
+    "node": "20.x"
   },
   "dependencies": {
     "@next/bundle-analyzer": "14.1.4",
