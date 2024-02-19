@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'Trillium Smith - Software Engineer',
   author: 'Trillium Smith',
   headerTitle: 'Trillium Smith',
-  // description: 'Catchphrase',
+  description: '',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
