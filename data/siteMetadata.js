@@ -11,7 +11,7 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
   mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'trillium@hatsfabulous.com',
+  email: 'trillium@trilliumsmith.com',
   github: 'https://github.com/spiteless',
   // twitter: 'https://twitter.com/Twitter',
   // facebook: 'https://facebook.com',
