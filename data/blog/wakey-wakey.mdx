@@ -9,3 +9,15 @@ summary: Having fun with waking up Talon Voice
 I was recently having trouble getting my `wake up` phrase to work properly in Talon, so I decided to try a phrase I don't use often: `Wakey wakey`.
 
 It works! And it makes me feel a little silly/giddy every time
+
+```
+# spiteless_knausj_talon/core/modes/to_wake_mode.talon
+mode: sleep
+-
+
+wiki wiki | wakey wakey: speech.enable()
+```
+
+## What's with the | symbol and the wiki words
+
+The symbol `|` in a talon command means `OR`, so if Talon hears `wiki wiki` or `wakey wakey` then it will run the `speech.enable()` command. Talon Voice does a very good job of recognizing fake words such as `wakey`, but it's also good practice to match what Talon might likely hear, or to pick something that's easier to say.
