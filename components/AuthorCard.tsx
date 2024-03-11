@@ -4,25 +4,29 @@ import siteMetadata from '@/data/siteMetadata'
 import Link from 'next/link'
 
 const AuthorCard = ({ content }) => {
-  const { author, avatar, occupation, company, email, twitter, linkedin, github } = siteMetadata
+  const { author, avatar, occupation, company, email, twitter, linkedin, github, location } =
+    siteMetadata
   return (
     <div>
       <div className="flex flex-row items-center justify-center space-x-2 pb-8">
         {avatar && (
-          <div className="pr-8">
+          <div className="pr-2 xl:pr-4">
             <Image
               src={avatar}
               alt="avatar"
               width={224}
               height={224}
-              className="h-56 w-56 rounded-full"
+              className="h-48 w-48 min-w-48 rounded-full md:h-52 md:w-52"
             />
           </div>
         )}
         <div>
-          <h3 className="pb-2 pt-4 text-4xl font-bold leading-8 tracking-tight">{author}</h3>
-          <div className="text-lg text-gray-500 dark:text-gray-400">{occupation}</div>
-          <div className="text-lg text-gray-500 dark:text-gray-400">{company}</div>
+          <h3 className="pb-2 pt-4  text-2xl font-bold leading-8 tracking-tight sm:text-3xl md:text-4xl">
+            {author}
+          </h3>
+          <div className="md:text-md text-base text-gray-500 dark:text-gray-400">{occupation}</div>
+          <div className="md:text-md text-base text-gray-500 dark:text-gray-400">{company}</div>
+          <div className="md:text-md text-base text-gray-500 dark:text-gray-400">{location}</div>
           <div className="flex space-x-3 pt-6">
             <SocialIcon kind="mail" href={`mailto:${email}`} />
             <SocialIcon kind="github" href={github} />
