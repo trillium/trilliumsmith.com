@@ -49,7 +49,7 @@ The command `m focus chrome, go tab one` will split into the follow parts:
  - `focus chrome,`: The first phrase being examined by the script
  - `go tab one`: The second phrase being examined by the script
 
-In the above example, `focus chrome,` has a trailing comma, this is used to separate commands. `focus chrome,` will be split into `focus chrome` and a short sleep. The mimic command only accepts strings of words Talon Voice understands, so for example mimic will fail with numbers eg `1` but would accept strings representing numbers eg `one`. Additional characters like punctuation tend to also break `mimic`, so when using this script I don't use them.
+In the above example, `focus chrome,` has a trailing comma, this is used to separate commands. `focus chrome,` will be split into `focus chrome` and a short sleep. The mimic command only accepts strings of words Talon Voice understands, so for example mimic will fail with numbers e.g. `1` but would accept strings representing numbers e.g. `one`. Additional characters like punctuation tend to also break `mimic`, so when using this script I don't use them.
 
 ```bash
 function m() {
@@ -89,7 +89,7 @@ This just mutes return statements from the repl so that noise won't pollute the 
 
 ## What does M do
 
-`M` is a helper function that automatically returns to the last used window. This makes it easy to run a short command eg `tab search, word github, south, lap`. In my repo that would execute in order:
+`M` is a helper function that automatically returns to the last used window. This makes it easy to run a short command e.g. `tab search, word github, south, lap`. In my repo that would execute in order:
  - `command tab` to switch windows. Chrome is the assumed window in this case
  - `tab search` to run the command to search open tabs
  - `word github` to type github into the search
