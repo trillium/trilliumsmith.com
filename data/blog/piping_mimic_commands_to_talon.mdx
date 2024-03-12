@@ -3,7 +3,7 @@ title: Using Talon's mimic( ) function
 date: '2024-03-11'
 tags: ['Talon Voice', 'Terminal']
 draft: false
-summary: Quick and dirty terminal funciton for using Talon's mimic( )
+summary: Quick and dirty terminal function for using Talon's mimic( )
 ---
 
 Talon Voice has an inbuilt `mimic` function that lets the user test commands. This is a feature I use fairly regularly when I'm in a space with too much background talking, or I just want to test something.
@@ -85,7 +85,7 @@ function m() {
 
 ### What's with the > /dev/null
 
-This just mutes retun statements from the repl so that noise won't pollute the terminal as I'm working.
+This just mutes return statements from the repl so that noise won't pollute the terminal as I'm working.
 
 ## What does M do
 
@@ -112,8 +112,8 @@ function M() {
 }
 ```
 
- (Note: it's hard coded for mac at the moment but mimicing `command tab` so if that doesn't switch to your last window in your OS it will need updating).
+ (Note: it's hard coded for mac at the moment but mimicking `command tab` so if that doesn't switch to your last window in your OS it will need updating).
 
 ## When is this actually a terrible choice to test something
 
-Funnily enough, I had thought that using `mimic` to test if pieces of my Talon setup were functioning properly was totally fine. Turns out no, `mimic` is not the same as actually saying a whole phrase in Talon. This is important when testing commands from other sources like `talon_gaze_ocr`, which depends on a phrase being said to generate timestamp data. `mimic` does not gererate that data.
+Funnily enough, I had thought that using `mimic` to test if pieces of my Talon setup were functioning properly was totally fine. Turns out no, `mimic` is not the same as actually saying a whole phrase in Talon. This is important when testing commands from other sources like `talon_gaze_ocr`, which depends on a phrase being said to generate timestamp data. `mimic` does not generate that data.
