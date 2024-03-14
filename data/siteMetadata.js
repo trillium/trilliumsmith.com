@@ -7,6 +7,7 @@ const siteMetadata = {
   company: 'HackForLA',
   headerTitle: 'Trillium Smith',
   location: 'Los Angeles, CA',
+  openToWork: true,
   description: 'Musings of a self-taught software engineer',
   language: 'en-us',
   theme: 'system', // system, dark or light
