@@ -1,0 +1,34 @@
+.PDF__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.PDF__container__load {
+  margin-top: 1em;
+  color: white;
+}
+
+.PDF__container__document {
+  width: 100%;
+  max-width: calc(100% - 2em);
+  margin: 1em 0;
+}
+
+.PDF__container__document .react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PDF__container__document .react-pdf__Page {
+  margin: 1em 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.PDF__container__document .react-pdf__message {
+  padding: 20px;
+  color: white;
+}
