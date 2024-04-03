@@ -4,6 +4,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
+const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
+
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -86,6 +89,22 @@ module.exports = () => {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       })
+      config.module.rules.push({
+        test: /\.node/,
+        use: {
+          loader: 'raw-loader',
+        },
+      })
+      config.plugins.push(
+        new CopyPlugin({
+          patterns: [
+            {
+              from: require.resolve('pdfjs-dist/build/pdf.worker.min.js'),
+              to: path.join(__dirname, 'public/static/js'),
+            },
+          ],
+        })
+      )
 
       return config
     },
