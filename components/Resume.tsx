@@ -19,7 +19,7 @@ const options = {
 
 const resizeObserverOptions = {}
 
-const maxWidth = 800
+const maxWidth = 1280
 
 type PDFFile = string | File | null
 
@@ -53,7 +53,7 @@ export default function Sample({ filename }) {
 
   return (
     <div className="PDF__container">
-      <div className="PDF__container__document" ref={setContainerRef}>
+      <div className="PDF__container__document xs:m-0" ref={setContainerRef}>
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess} options={options}>
           {Array.from(new Array(numPages), (el, index) => (
             <Page
