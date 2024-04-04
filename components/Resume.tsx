@@ -23,8 +23,8 @@ const maxWidth = 800
 
 type PDFFile = string | File | null
 
-export default function Sample() {
-  const [file, setFile] = useState<PDFFile>('./Trillium_Smith__Fullstack_Software_Engineer.pdf')
+export default function Sample({ filename }) {
+  const [file, setFile] = useState<PDFFile>(filename)
   const [numPages, setNumPages] = useState<number>()
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null)
   const [containerWidth, setContainerWidth] = useState<number>()
