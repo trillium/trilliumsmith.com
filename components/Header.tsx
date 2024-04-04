@@ -9,7 +9,7 @@ import OpenToWorkBadge from './ui/OpenToWorkBadge'
 
 const Header = () => {
   return (
-    <header className="relative flex items-center justify-between py-10">
+    <header className="relative flex items-center justify-between px-4 py-10">
       <div className="align-center flex flex-row items-center">
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex items-center justify-between">
