@@ -1,3 +1,4 @@
+import Link from 'next/link'
 export default function OpenToWorkBadge() {
   return (
     <div className="static sm:absolute sm:mt-24">
@@ -8,7 +9,9 @@ export default function OpenToWorkBadge() {
         >
           <div className="m-auto h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></div>
         </div>
-        <span className="inline whitespace-nowrap">I'm available for work</span>
+        <Link href={'/resume'}>
+          <span className="inline whitespace-nowrap">I'm available for work</span>
+        </Link>
       </div>
     </div>
   )
