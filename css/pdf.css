@@ -30,3 +30,11 @@
   padding: 20px;
   color: white;
 }
+
+/* Overrides */
+
+.annotationLayer :is(.linkAnnotation, .buttonWidgetAnnotation.pushButton) > a:hover {
+  opacity: 0.5;
+  background: #f43f5e; /* Tailwind rose-50 */
+  box-shadow: 0 2px 10px #f43f5e; /* Tailwind rose-50 */
+}
