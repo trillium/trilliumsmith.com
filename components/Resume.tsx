@@ -5,7 +5,6 @@ import { useResizeObserver } from '@wojtekmaj/react-hooks'
 import { pdfjs, Document, Page } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import 'react-pdf/dist/esm/Page/TextLayer.css'
-
 import 'css/pdf.css'
 
 import type { PDFDocumentProxy } from 'pdfjs-dist'
@@ -19,33 +18,36 @@ const options = {
 
 const resizeObserverOptions = {}
 
-const maxWidth = 1280
-
-type PDFFile = string | File | null
-
 export default function Sample({ filename }) {
-  const [file, setFile] = useState<PDFFile>(filename)
   const [numPages, setNumPages] = useState<number>()
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null)
-  const [containerWidth, setContainerWidth] = useState<number>()
+  const [containerWidth, setContainerWidth] = useState<number>(400)
+  const [documentHeight, setDocumentHeight] = useState<number>(400)
+
+  function debounce(fn, delay) {
+    let timeoutId
+    return (...args) => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => fn(...args), delay)
+    }
+  }
+
+  const handleSetContainerWidth = (width) => {
+    setContainerWidth(width)
+    setDocumentHeight(Math.floor(width * (11 / 8.5)))
+  }
+
+  const debounceSetContainerWidth = debounce(handleSetContainerWidth, 100)
 
   const onResize = useCallback<ResizeObserverCallback>((entries) => {
     const [entry] = entries
 
     if (entry) {
-      setContainerWidth(entry.contentRect.width)
+      debounceSetContainerWidth(entry.contentRect.width)
     }
   }, [])
 
   useResizeObserver(containerRef, resizeObserverOptions, onResize)
-
-  function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { files } = event.target
-
-    if (files && files[0]) {
-      setFile(files[0] || null)
-    }
-  }
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }: PDFDocumentProxy): void {
     setNumPages(nextNumPages)
@@ -54,12 +56,14 @@ export default function Sample({ filename }) {
   return (
     <div className="PDF__container">
       <div className="PDF__container__document xs:m-0" ref={setContainerRef}>
-        <Document file={file} onLoadSuccess={onDocumentLoadSuccess} options={options}>
+        <Document file={filename} onLoadSuccess={onDocumentLoadSuccess} options={options}>
           {Array.from(new Array(numPages), (el, index) => (
             <Page
+              canvasBackground={'#ffffff'}
+              className={`min-w-fit border border-primary-500 bg-primary-500`}
               key={`page_${index + 1}`}
               pageNumber={index + 1}
-              width={containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth}
+              height={documentHeight}
             />
           ))}
         </Document>
