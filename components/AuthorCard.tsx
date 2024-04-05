@@ -1,7 +1,6 @@
 import Image from './Image'
 import SocialIcon from '@/components/social-icons'
 import siteMetadata from '@/data/siteMetadata'
-import Link from 'next/link'
 
 const AuthorCard = ({ content }) => {
   const { author, avatar, occupation, company, email, twitter, linkedin, github, location } =

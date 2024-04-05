@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/Link'
 export default function OpenToWorkBadge() {
   return (
     <div className="static sm:absolute sm:mt-24">
