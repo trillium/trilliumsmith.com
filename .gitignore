@@ -49,3 +49,6 @@ yarn-error.log*
 
 # spellchecker-cli
 dictionary.txt
+
+# Generated files
+app/tag-data.json
