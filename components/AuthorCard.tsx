@@ -37,11 +37,11 @@ const AuthorCard = ({ content }) => {
       <div className="flex max-w-full flex-col items-center justify-center">
         <div className="prose max-w-full pb-8 pt-10 dark:prose-invert xl:text-xl">
           <p>
-            Hello there! I'm Trillium, a self-taught software developer, open source contributor,
-            and bootcamp graduate. I'm the lead developer of VRMS (Volunteer Relationship Management
-            System), and an avid user of Talon Voice, a voice-driven user interface for hands-free
-            computing. I enjoy partner dancing, making espresso drinks, and listening to
-            podcasts/audiobooks in my free time.
+            Hello there! I'm Trillium, a self-taught software developer, and open source
+            contributor. I'm the lead developer of VRMS (Volunteer Relationship Management System),
+            and an avid user of Talon Voice, a voice-driven user interface for hands-free computing.
+            I enjoy partner dancing, making espresso drinks, and listening to podcasts/audiobooks in
+            my free time.
           </p>
         </div>
       </div>
