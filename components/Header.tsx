@@ -27,10 +27,7 @@ const Header = () => {
         </Link>
         {siteMetadata.openToWork && <OpenToWorkBadge />}
       </div>
-      <div
-        className="flex items-center space-x-4 leading-5 hover:text-primary-500 dark:hover:text-primary-400
-sm:space-x-6"
-      >
+      <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
         {headerNavLinks
           .filter((link) => link.href !== '/')
           .map((link) => (
