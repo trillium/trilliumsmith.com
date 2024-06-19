@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Menu, RadioGroup, Transition } from '@headlessui/react'
-import { headerNavOptions } from '@/data/headerNavLinks'
+import headerNavLinks from '@/data/headerNavLinks'
 import Link from 'next/link'
 
 export const NavOptions = () => {
@@ -11,9 +11,9 @@ export const NavOptions = () => {
     <div className="mr-5">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          {headerNavOptions.title && (
+          {headerNavLinks.title && (
             <Menu.Button className={'hidden font-medium text-gray-900 dark:text-gray-100 sm:block'}>
-              {headerNavOptions.title}
+              {headerNavLinks.title}
             </Menu.Button>
           )}
         </div>
@@ -28,8 +28,8 @@ export const NavOptions = () => {
         >
           <Menu.Items className="absolute right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
             <div className="p-1">
-              {headerNavOptions.children &&
-                headerNavOptions.children.map((link) => (
+              {headerNavLinks.children &&
+                headerNavLinks.children.map((link) => (
                   <Menu.Item key={link.title}>
                     <Link
                       href={link.href}
