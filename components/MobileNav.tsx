@@ -108,9 +108,9 @@ const MobileNav = () => {
 
 export default MobileNav
 
-interface RenderMobileNavLinkProps extends NavItem {
-  clickFunc: () => void
+type RenderMobileNavLinkProps = {
   navLink: NavItem
+  clickFunc: () => void
 }
 
 const RenderMobileNavLink = ({ navLink, clickFunc }: RenderMobileNavLinkProps) => {
