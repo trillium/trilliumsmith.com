@@ -9,11 +9,7 @@ const Sun = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
     fill="currentColor"
-<<<<<<< HEAD
-    className="h-6 w-6 text-gray-900 hover:text-primary-500 group-hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400 dark:group-hover:text-primary-400"
-=======
     className="group:hover:text-gray-100 h-6 w-6"
->>>>>>> fork/ts.feature_dropdown
   >
     <path
       fillRule="evenodd"
@@ -27,11 +23,7 @@ const Moon = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
     fill="currentColor"
-<<<<<<< HEAD
-    className="h-6 w-6 text-gray-900 hover:text-primary-500 group-hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400 dark:group-hover:text-primary-400"
-=======
     className="group:hover:text-gray-100 h-6 w-6"
->>>>>>> fork/ts.feature_dropdown
   >
     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
   </svg>
@@ -45,11 +37,7 @@ const Monitor = () => (
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-<<<<<<< HEAD
-    className="h-6 w-6 text-gray-900 group-hover:text-primary-500 dark:text-gray-100 dark:group-hover:text-primary-400"
-=======
     className="group:hover:text-gray-100 h-6 w-6"
->>>>>>> fork/ts.feature_dropdown
   >
     <rect x="3" y="3" width="14" height="10" rx="2" ry="2"></rect>
     <line x1="7" y1="17" x2="13" y2="17"></line>
