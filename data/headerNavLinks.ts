@@ -4,13 +4,6 @@ const headerNavLinks = [
   { href: '/tags', title: 'Tags' },
   // { href: '/projects', title: 'Projects' },
   { href: '/about', title: 'About' },
-  {
-    title: 'Dropdown',
-    children: [
-      { href: '/projects', title: 'Projects' },
-      { href: '/about', title: 'About' },
-    ],
-  },
 ]
 
 export interface NavItem {
@@ -24,4 +17,4 @@ export interface NavItemChild {
   title: string
 }
 
-export default headerNavLinks
+export default { headerNavLinks }
