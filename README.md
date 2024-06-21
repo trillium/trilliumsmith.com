@@ -2,6 +2,8 @@
 
 # Welcome to my blog site :)
 
+![GitHub last commit](https://img.shields.io/github/last-commit/spiteless/trilliumsmith--devsite)
+
 This blog is made with:
 
 - [Next.js](https://nextjs.org/)
