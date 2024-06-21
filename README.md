@@ -4,6 +4,7 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/spiteless/trilliumsmith--devsite)
 ![Netlify](https://img.shields.io/netlify/c3afa8f2-e8c7-4095-bacb-1a5182d9131d)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Ftrilliumsmith.com%2F)
 
 This blog is made with:
 
