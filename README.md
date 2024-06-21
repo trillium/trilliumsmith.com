@@ -3,6 +3,7 @@
 # Welcome to my blog site :)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/spiteless/trilliumsmith--devsite)
+![Netlify](https://img.shields.io/netlify/c3afa8f2-e8c7-4095-bacb-1a5182d9131d)
 
 This blog is made with:
 
