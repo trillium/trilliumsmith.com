@@ -3,7 +3,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import Link from './Link'
-import headerNavLinks, { NavItem, NavItemChild } from '@/data/headerNavLinks'
+import headerNavLinks from '@/data/headerNavLinks'
+import { NavItem, NavItemChild } from '@/components/NavOptions'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
@@ -27,8 +28,7 @@ const MobileNav = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-gray-900 hover:text-primary-500 dark:text-gray-100
-          dark:hover:text-primary-400"
+          className="h-8 w-8 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
         >
           <path
             fillRule="evenodd"
@@ -37,7 +37,6 @@ const MobileNav = () => {
           />
         </svg>
       </button>
-
       <Transition appear show={navShow} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={onToggleNav}>
           <Transition.Child
@@ -86,7 +85,7 @@ const MobileNav = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className="text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                        className="text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
                       >
                         <path
                           fillRule="evenodd"
@@ -109,8 +108,8 @@ const MobileNav = () => {
 export default MobileNav
 
 type RenderMobileNavLinkProps = {
-  navLink: NavItem
   clickFunc: () => void
+  navLink: NavItem
 }
 
 const RenderMobileNavLink = ({ navLink, clickFunc }: RenderMobileNavLinkProps) => {
@@ -123,7 +122,7 @@ const RenderMobileNavLink = ({ navLink, clickFunc }: RenderMobileNavLinkProps) =
           {navLink.title}
         </h3>
         <div className="ml-6 flex flex-col items-start">
-          {children.map((cLink) => (
+          {children.map((cLink: NavItemChild) => (
             <Link
               key={cLink.title}
               href={cLink.href}
