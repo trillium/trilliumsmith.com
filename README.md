@@ -41,6 +41,12 @@ If you notice something off about a blog post, or UI discrepancies please let me
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Contact
+
+Trillium Smith - trillium@trilliumsmith.com
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- Status shields -->
 
 [github-last-commit-shield]: https://img.shields.io/github/last-commit/spiteless/trilliumsmith--devsite?style=for-the-badge
