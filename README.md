@@ -5,14 +5,22 @@
 # Welcome to my blog site :)
 
 ![Github last commit][github-last-commit-shield]
-![Netlify status][netlify-shield]
+![Netlify status][netlify-status-shield]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- ![Website](https://img.shields.io/website?url=https%3A%2F%2Ftrilliumsmith.com%2F) -->
 
 This blog is made with:
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
+[![React][react-shield]][react-url]
+[![Tailwind][tailwind-shield]][tailwind-url]
+[![Markdown][markdown-shield]][markdown-url]
+[![Nextjs][typescript-shield]][typescript-url]
+[![Netlify][netlify-shield]][netlify-url]
+[![Headless UI][headless-shield]][headless-url]
+[![Prettier][prettier-shield]][prettier-url]
+[![Nextjs][nextjs-shield]][nextjs-url]
 
 This blog is forever a work in progress, with some imporvements being committed upstream.
 
@@ -31,7 +39,32 @@ If you notice something off about a blog post, or UI discrepancies please let me
 - Original work [MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE) © [Timothy Lin](https://www.timlrx.com)
 - Modifications [MIT](https://github.com/spiteless/trilliumsmith--devsite/blob/main/LICENSE) © [Trillium Smith](http://trilliumsmith.com)
 
-[github-last-commit-shield]: https://img.shields.io/github/last-commit/spiteless/trilliumsmith--devsite?style=for-the-badge
-[netlify-shield]: https://img.shields.io/netlify/c3afa8f2-e8c7-4095-bacb-1a5182d9131d?style=for-the-badge
+<!-- Status shields -->
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+[github-last-commit-shield]: https://img.shields.io/github/last-commit/spiteless/trilliumsmith--devsite?style=for-the-badge
+[netlify-status-shield]: https://img.shields.io/netlify/c3afa8f2-e8c7-4095-bacb-1a5182d9131d?style=for-the-badge
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-white?style=for-the-badge&logo=linkedin&colorB=0a66c2
+[linkedin-url]: https://linkedin.com/in/trilliumsmith
+[license-shield]: https://img.shields.io/github/license/Spiteless/transparency-qr.svg?style=for-the-badge
+[license-url]: https://github.com/Spiteless/transparency-qr/blob/main/LICENSE.txt
+
+<!-- Built With shields -->
+
+[react-shield]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://react.dev/
+[tailwind-shield]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[tailwind-url]: https://tailwindcss.com/
+[netlify-shield]: https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white
+[netlify-url]: https://www.netlify.com/
+[markdown-shield]: https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white
+[markdown-url]: https://www.markdownguide.org/
+[headless-shield]: https://img.shields.io/badge/Headless%20ui-000000?style=for-the-badge&logo=headlessui&logoColor=7dd3fc
+
+[headless-url]: https://headlessui.com/]
+
+[prettier-shield]: https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E
+[prettier-url]: https://prettier.io/
+[nextjs-shield]: https://img.shields.io/badge/nextjs-000000?style=for-the-badge&logo=next.js&logoColor=white
+[nextjs-url]: https://prettier.io/
+[typescript-shield]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[typescript-url]: https://www.typescriptlang.org/
