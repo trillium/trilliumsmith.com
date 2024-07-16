@@ -43,7 +43,7 @@ If you notice something off about a blog post, or UI discrepancies please let me
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Licence
+## License
 
 - Original work [MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE) © [Timothy Lin](https://www.timlrx.com)
 - Modifications [MIT](https://github.com/spiteless/trilliumsmith--devsite/blob/main/LICENSE) © [Trillium Smith](http://trilliumsmith.com)
