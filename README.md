@@ -9,7 +9,16 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-<!-- ![Website](https://img.shields.io/website?url=https%3A%2F%2Ftrilliumsmith.com%2F) -->
+<details>
+<summary>Table of Contents</summary>
+<ol>
+    <li><a href="#contributions">Contributions</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+</ol>
+</details>
+
+<br>
 
 This blog is made with:
 
