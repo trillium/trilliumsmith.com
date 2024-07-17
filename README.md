@@ -7,6 +7,7 @@
 ![Github last commit][github-last-commit-shield]
 ![Netlify status][netlify-status-shield]
 [![MIT License][license-shield]][license-url]
+![GitHub repo size](https://img.shields.io/github/repo-size/spiteless/trilliumsmith.com?style=for-the-badge)
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <details>
