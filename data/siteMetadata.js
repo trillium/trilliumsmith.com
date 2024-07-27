@@ -12,12 +12,12 @@ const siteMetadata = {
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://trilliumsmith.com/',
-  siteRepo: 'https://github.com/Spiteless/trilliumsmith--devsite',
+  siteRepo: 'https://github.com/trilliumsmith/trilliumsmith--devsite',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
   // mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'trillium@trilliumsmith.com',
-  github: 'https://github.com/spiteless',
+  github: 'https://github.com/trilliumsmith',
   // x: 'https://twitter.com/x',
   // twitter: 'https://twitter.com/Twitter',
   // facebook: 'https://facebook.com',
@@ -39,7 +39,7 @@ const siteMetadata = {
     },
     // plausibleAnalytics: {
     //   plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
-         // If you are hosting your own Plausible.
+    // If you are hosting your own Plausible.
     //   src: '', // e.g. https://plausible.my-domain.com/js/script.js
     // },
     // simpleAnalytics: {},
