@@ -7,7 +7,7 @@
 ![Github last commit][github-last-commit-shield]
 ![Netlify status][netlify-status-shield]
 [![MIT License][license-shield]][license-url]
-![GitHub repo size](https://img.shields.io/github/repo-size/trilliumsmith/trilliumsmith.com?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/trillium/trilliumsmith.com?style=for-the-badge)
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <details>
@@ -40,7 +40,7 @@ If you'd like to create a blog of your own you're welcome to fork this repo, but
 
 ## Contributions
 
-If you notice something off about a blog post, or UI discrepancies please let me know either by creating a [new issue](https://github.com/trilliumsmith/trilliumsmith--devsite/issues/new/choose) or making a fork to fix this issue on your own. Either is welcome and encouraged!
+If you notice something off about a blog post, or UI discrepancies please let me know either by creating a [new issue](https://github.com/trillium/trilliumsmith--devsite/issues/new/choose) or making a fork to fix this issue on your own. Either is welcome and encouraged!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
