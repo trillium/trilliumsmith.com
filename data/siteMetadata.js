@@ -12,7 +12,7 @@ const siteMetadata = {
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://trilliumsmith.com/',
-  siteRepo: 'https://github.com/trillium/trilliumsmith--devsite',
+  siteRepo: 'https://github.com/trillium/trilliumsmith.com',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
   // mastodon: 'https://mastodon.social/@mastodonuser',

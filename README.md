@@ -47,7 +47,7 @@ If you notice something off about a blog post, or UI discrepancies please let me
 ## License
 
 - Original work [MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE) © [Timothy Lin](https://www.timlrx.com)
-- Modifications [MIT](https://github.com/trilliumsmith/trilliumsmith--devsite/blob/main/LICENSE) © [Trillium Smith](http://trilliumsmith.com)
+- Modifications [MIT](https://github.com/trillium/trilliumsmith.com/blob/main/LICENSE) © [Trillium Smith](http://trilliumsmith.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -59,7 +59,7 @@ Trillium Smith - trillium@trilliumsmith.com
 
 <!-- Status shields -->
 
-[github-last-commit-shield]: https://img.shields.io/github/last-commit/trillium/trilliumsmith--devsite?style=for-the-badge
+[github-last-commit-shield]: https://img.shields.io/github/last-commit/trillium/trilliumsmith.com?style=for-the-badge
 [netlify-status-shield]: https://img.shields.io/netlify/c3afa8f2-e8c7-4095-bacb-1a5182d9131d?style=for-the-badge
 [linkedin-shield]: https://img.shields.io/badge/LinkedIn-white?style=for-the-badge&logo=linkedin&colorB=0a66c2
 [linkedin-url]: https://linkedin.com/in/trilliumsmith
