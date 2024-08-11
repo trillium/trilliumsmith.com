@@ -10,7 +10,7 @@ import { NavOptions } from './NavOptions'
 const Header = () => {
   let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
   if (siteMetadata.stickyNav) {
-    headerClass += ' sticky top-0'
+    headerClass += ' sticky top-0 z-50'
   }
 
   return (
