@@ -13,8 +13,8 @@ const siteMetadata = {
   theme: 'system', // system, dark or light
   siteUrl: 'https://trilliumsmith.com/',
   siteRepo: 'https://github.com/trillium/trilliumsmith.com',
-  siteLogo: '/static/images/logo.png',
-  socialBanner: '/static/images/twitter-card.png',
+  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
+  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   // mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'trillium@trilliumsmith.com',
   github: 'https://github.com/trillium',
