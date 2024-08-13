@@ -39,13 +39,16 @@ export default function Sample({ filename }) {
 
   const debounceSetContainerWidth = debounce(handleSetContainerWidth, 100)
 
-  const onResize = useCallback<ResizeObserverCallback>((entries) => {
-    const [entry] = entries
+  const onResize = useCallback<ResizeObserverCallback>(
+    (entries) => {
+      const [entry] = entries
 
-    if (entry) {
-      debounceSetContainerWidth(entry.contentRect.width)
-    }
-  }, [])
+      if (entry) {
+        debounceSetContainerWidth(entry.contentRect.width)
+      }
+    },
+    [debounceSetContainerWidth]
+  )
 
   useResizeObserver(containerRef, resizeObserverOptions, onResize)
 
