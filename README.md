@@ -26,7 +26,7 @@ This blog is made with:
 [![React][react-shield]][react-url]
 [![Tailwind][tailwind-shield]][tailwind-url]
 [![Markdown][markdown-shield]][markdown-url]
-[![Nextjs][typescript-shield]][typescript-url]
+[![Typescript][typescript-shield]][typescript-url]
 [![Netlify][netlify-shield]][netlify-url]
 [![Headless UI][headless-shield]][headless-url]
 [![Prettier][prettier-shield]][prettier-url]
