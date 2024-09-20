@@ -20,11 +20,20 @@ const siteMetadata = {
   github: 'https://github.com/trillium',
   // x: 'https://twitter.com/x',
   // twitter: 'https://twitter.com/Twitter',
+<<<<<<< HEAD
   // facebook: 'https://facebook.com',
   // youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com/in/trilliumsmith/',
   // threads: 'https://www.threads.net',
   // instagram: 'https://www.instagram.com',
+=======
+  facebook: 'https://facebook.com',
+  youtube: 'https://youtube.com',
+  linkedin: 'https://www.linkedin.com',
+  threads: 'https://www.threads.net',
+  instagram: 'https://www.instagram.com',
+  medium: 'https://medium.com',
+>>>>>>> 2d60e62 (Add medium to Footer)
   locale: 'en-US',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
