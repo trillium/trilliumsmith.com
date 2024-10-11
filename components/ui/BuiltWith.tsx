@@ -21,7 +21,7 @@ const BuiltWith = () => (
     <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
     <Link
       href={siteMetadata.siteRepo}
-      className="text-gray-500 underline underline-offset-4 dark:text-gray-400"
+      className="text-gray-500 underline underline-offset-4 hover:text-primary-500 dark:text-gray-400 hover:dark:text-primary-500"
     >
       <span data-umami-event="view-source">View source</span>
     </Link>
