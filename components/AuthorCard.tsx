@@ -15,7 +15,7 @@ const AuthorCard = ({ content }) => {
               alt="avatar"
               width={224}
               height={224}
-              className="h-48 w-48 min-w-48 rounded-full dark:border-2 dark:border-primary-400 md:h-52 md:w-52"
+              className="h-48 w-48 min-w-48 rounded-full border-2 border-primary-400 bg-gradient-to-b from-white to-teal-500 dark:from-slate-900 dark:to-teal-500 md:h-52 md:w-52"
             />
           </div>
         )}
