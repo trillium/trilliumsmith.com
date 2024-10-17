@@ -2,7 +2,7 @@
 const siteMetadata = {
   title: 'Trillium Smith - Software Engineer',
   author: 'Trillium Smith',
-  avatar: '/static/images/avatar.png',
+  avatar: '/static/images/avatar.jpg',
   occupation: 'Software Engineer',
   company: 'HackForLA',
   headerTitle: 'Trillium Smith',
