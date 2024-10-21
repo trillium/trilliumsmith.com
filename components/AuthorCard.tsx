@@ -37,11 +37,28 @@ const AuthorCard = ({ content }) => {
       <div className="flex max-w-full flex-col items-center justify-center">
         <div className="prose max-w-full pb-8 pt-10 dark:prose-invert xl:text-xl">
           <p>
-            Hello there! I'm Trillium, a self-taught software developer, and open source
-            contributor. I'm the lead developer of VRMS (Volunteer Relationship Management System),
-            and an avid user of Talon Voice, a voice-driven user interface for hands-free computing.
-            I enjoy partner dancing, making espresso drinks, and listening to podcasts/audiobooks in
-            my free time.
+            Hello there! I'm Trillium, a self-taught software developer and open-source enthusiast.
+            I'm originally from the 'receding hairline' of California - Humboldt County,
+            Arcata/Eureka where I grew up on a hippie commune far from any tech hubs.
+          </p>
+
+          <p>
+            My first foray into programming I naively thought the right way to learn to code was to
+            read programming books - starting with the 1,683 page O'Reilly Python Tome.
+            Spoilers:that didn't work too well.
+          </p>
+
+          <p>
+            I’ve always been drawn to tech even when I didn’t have a deep understanding of how
+            computers worked. Learning to bridge that gap has been one of the most exciting parts of
+            my development journey. It’s that sense of discovery that keeps me hooked.
+          </p>
+
+          <p>
+            In that persuit of understanding I've had the pleasure of working alongside designers
+            and developers who have raised my standards for what's expected of programs and
+            applcations. I've had the opportunity to create memorable products that are both
+            enjoyable to use, and written in code that is maintainable and easy to understand.
           </p>
         </div>
       </div>
