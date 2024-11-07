@@ -23,7 +23,7 @@ const components = {
   mastodon: Mastodon,
   threads: Threads,
   instagram: Instagram,
-  bluesky: Bluesky
+  bluesky: Bluesky,
 }
 
 type SocialIconProps = {
