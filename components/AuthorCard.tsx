@@ -3,7 +3,7 @@ import SocialIcon from '@/components/social-icons'
 import siteMetadata from '@/data/siteMetadata'
 
 const AuthorCard = ({ content }) => {
-  const { author, avatar, occupation, company, email, twitter, linkedin, github, location } =
+  const { author, avatar, occupation, company, email, twitter, bluesky, linkedin, github, location } =
     siteMetadata
   return (
     <div>
@@ -31,6 +31,7 @@ const AuthorCard = ({ content }) => {
             <SocialIcon kind="github" href={github} />
             <SocialIcon kind="linkedin" href={linkedin} />
             <SocialIcon kind="twitter" href={twitter} />
+            <SocialIcon kind="bluesky" href={bluesky} />
           </div>
         </div>
       </div>
