@@ -3,8 +3,18 @@ import SocialIcon from '@/components/social-icons'
 import siteMetadata from '@/data/siteMetadata'
 
 const AuthorCard = ({ content }) => {
-  const { author, avatar, occupation, company, email, twitter, bluesky, linkedin, github, location } =
-    siteMetadata
+  const {
+    author,
+    avatar,
+    occupation,
+    company,
+    email,
+    twitter,
+    bluesky,
+    linkedin,
+    github,
+    location,
+  } = siteMetadata
   return (
     <div>
       <div className="flex flex-row items-center justify-center space-x-2 pb-8">
