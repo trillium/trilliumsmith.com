@@ -21,6 +21,10 @@ const siteMetadata = {
   // x: 'https://twitter.com/x',
   // twitter: 'https://twitter.com/Twitter',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  bluesky: 'https://bsky.app/profile/trilliumsmith.bsky.social',
+>>>>>>> b9968d4 (feat: Create bluesky social field)
   // facebook: 'https://facebook.com',
   // youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com/in/trilliumsmith/',
