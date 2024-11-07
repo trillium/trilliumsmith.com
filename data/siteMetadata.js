@@ -20,6 +20,7 @@ const siteMetadata = {
   github: 'https://github.com/trillium',
   // x: 'https://twitter.com/x',
   // twitter: 'https://twitter.com/Twitter',
+  bluesky: 'https://bsky.app/profile/trilliumsmith.bsky.social',
   // facebook: 'https://facebook.com',
   // youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com/in/trilliumsmith/',
