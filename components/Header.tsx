@@ -8,9 +8,14 @@ import OpenToWorkBadge from './ui/OpenToWorkBadge'
 import { NavOptions } from './NavOptions'
 
 const Header = () => {
+  let headerClass = 'flex items-center bg-white dark:bg-gray-950 justify-between py-10'
+  if (siteMetadata.stickyNav) {
+    headerClass += ' sticky top-0'
+  }
+
   return (
-    <header className="relative flex items-center justify-between px-4 py-10 sm:px-0">
-      <div className="align-center flex flex-row items-center">
+    <header className={headerClass}>
+      <div>
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex items-center justify-between">
             <div className="mr-3">
