@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { SVGProps } from 'react'
 
 // Icons taken from: https://simpleicons.org/
@@ -104,10 +105,35 @@ export function Medium(svgProps: SVGProps<SVGSVGElement>) {
 }
 
 export function Bluesky(svgProps: SVGProps<SVGSVGElement>) {
+  const { className, ...props } = svgProps
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...svgProps}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 566 500"
+      {...props}
+      className={clsx(
+        'group inline-flex items-center gap-2 transition-transform duration-500 hover:rotate-[-5deg] focus:rotate-[-5deg]',
+        className
+      )}
+    >
       <title>Bluesky</title>
-      <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565C.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479c.815 2.736 3.713 3.66 6.383 3.364q.204-.03.415-.056q-.207.033-.415.056c-3.912.58-7.387 2.005-2.83 7.078c5.013 5.19 6.87-1.113 7.823-4.308c.953 3.195 2.05 9.271 7.733 4.308c4.267-4.308 1.172-6.498-2.74-7.078a9 9 0 0 1-.415-.056q.21.026.415.056c2.67.297 5.568-.628 6.383-3.364c.246-.828.624-5.79.624-6.478c0-.69-.139-1.861-.902-2.206c-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8" />
+      <defs>
+        <path
+          id="wing"
+          fill="currentColor"
+          d="M 123.244 35.008 C 188.248 83.809 283.836 176.879 283.836 235.857 C 283.836 316.899 283.879 235.845 283.836 376.038 C 283.889 375.995 282.67 376.544 280.212 383.758 C 266.806 423.111 214.487 576.685 94.841 453.913 C 31.843 389.269 61.013 324.625 175.682 305.108 C 110.08 316.274 36.332 297.827 16.093 225.504 C 10.271 204.699 0.343 76.56 0.343 59.246 C 0.343 -27.451 76.342 -0.206 123.244 35.008 Z"
+        />
+      </defs>
+      <use
+        xlinkHref="#wing"
+        // eslint-disable-next-line prettier/prettier
+        className="group-hover:animate-flutter-left group-focus:animate-flutter-left origin-center animate-[flutter_430ms_ease-in-out]"
+      />
+      <use
+        xlinkHref="#wing"
+        // eslint-disable-next-line prettier/prettier
+        className="group-hover:animate-flutter-right group-focus:animate-flutter-right origin-center scale-x-[-1] animate-[flutter_500ms_ease-in-out]"
+      />
     </svg>
   )
 }
