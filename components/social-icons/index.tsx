@@ -25,7 +25,6 @@ const components = {
   threads: Threads,
   instagram: Instagram,
   medium: Medium,
-  // bluesky: BlueSkyFlutter,
   bluesky: Bluesky,
 }
 
