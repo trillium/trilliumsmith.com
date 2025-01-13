@@ -40,6 +40,8 @@ export const metadata: Metadata = {
   },
 }
 
+const filename = './Trillium_Smith__Fullstack_Software_Engineer.pdf'
+
 export default async function Page() {
   return (
     <div className="relative whitespace-nowrap">
@@ -53,7 +55,7 @@ export default async function Page() {
           <a href="./Trillium_Smith__Fullstack_Software_Engineer.pdf">View in Native</a>
         </button>
       </div>
-      <Resume filename="./Trillium_Smith__Fullstack_Software_Engineer.pdf" />
+      <Resume filename={filename} />
     </div>
   )
 }
