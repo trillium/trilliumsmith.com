@@ -34,14 +34,14 @@ const Header = () => {
         {siteMetadata.openToWork && <OpenToWorkBadge />}
       </div>
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-        <div className="no-scrollbar hidden items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6">
+        <div className="no-scrollbar hidden items-center space-x-4 overflow-x-auto pr-2 sm:flex sm:space-x-6">
           {headerNavLinks
             .filter((link) => link.href !== '/')
             .map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+                className="m-1 block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
               >
                 {link.title}
               </Link>
