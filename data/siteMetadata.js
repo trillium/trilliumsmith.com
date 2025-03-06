@@ -21,7 +21,7 @@ const siteMetadata = {
   // x: 'https://twitter.com/x',
   // twitter: 'https://twitter.com/Twitter',
   // facebook: 'https://facebook.com',
-  // youtube: 'https://youtube.com',
+  youtube: 'https://www.youtube.com/@Trillium_is',
   linkedin: 'https://www.linkedin.com/in/trilliumsmith/',
   // threads: 'https://www.threads.net',
   // instagram: 'https://www.instagram.com',
