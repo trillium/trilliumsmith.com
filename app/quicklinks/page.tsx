@@ -40,9 +40,9 @@ function LinkContainer({ kind, title, link, displayLink }) {
   return (
     <div className="flex w-80 flex-col place-content-between items-center rounded-3xl border border-primary-500 px-16 py-4">
       <div className="flex flex-row place-content-between items-center">
-        <div className="group flex flex-row items-center gap-4 hover:text-red-500 group-hover:text-purple-500">
-          <SocialIcon kind={kind} href={link} size={12} />
-          <Link className="text-4xl group-hover:text-primary-500" href="/">
+        <div className="group">
+          <Link className="flex flex-row gap-4 text-4xl group-hover:text-primary-500" href={link}>
+            <SocialIcon kind={kind} href={link} size={12} iconOnly={true} />
             {title}
           </Link>
         </div>
