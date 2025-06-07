@@ -43,7 +43,7 @@ export default function Page() {
 
 function LinkContainer({ kind, title, link, displayLink }) {
   return (
-    <div className="group flex w-full flex-grow flex-col place-content-between items-center rounded-3xl border border-primary-500 px-16 py-4 hover:bg-slate-100 dark:hover:bg-slate-950 sm:w-10/12 md:w-96">
+    <div className="max-w-112 group flex w-full flex-grow flex-col place-content-between items-center rounded-3xl border border-primary-500 px-16 py-4 hover:bg-slate-100 dark:hover:bg-slate-950">
       <div className="flex flex-row place-content-between items-center">
         <div>
           <Link className="flex flex-row gap-4 text-4xl group-hover:text-primary-500" href={link}>
