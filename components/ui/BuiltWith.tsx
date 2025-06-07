@@ -4,7 +4,7 @@ import BrandIcon from '@/components/ui/BrandIcon'
 import Link from '@/components/Link'
 
 const BuiltWith = () => (
-  <div className="flex items-center space-x-1">
+  <div className="flex items-center space-x-1 whitespace-nowrap">
     <span className="mr-1 text-gray-500 dark:text-gray-400">Built with</span>
 
     <div className="flex space-x-1.5">
