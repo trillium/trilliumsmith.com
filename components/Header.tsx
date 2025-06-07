@@ -23,7 +23,7 @@ const Header = () => {
               <Logo className="h-16" />
             </div>
             {typeof siteMetadata.headerTitle === 'string' ? (
-              <div className="hidden h-6 text-2xl font-semibold sm:block">
+              <div className="hidden h-6 whitespace-nowrap text-2xl font-semibold sm:block">
                 {siteMetadata.headerTitle}
               </div>
             ) : (
@@ -33,7 +33,7 @@ const Header = () => {
         </Link>
         {siteMetadata.openToWork && <OpenToWorkBadge />}
       </div>
-      <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
+      <div className="flex items-center space-x-4 leading-5">
         <div className="no-scrollbar hidden items-center space-x-4 overflow-x-auto pr-2 sm:flex sm:space-x-6">
           {headerNavLinks
             .filter((link) => link.href !== '/')
