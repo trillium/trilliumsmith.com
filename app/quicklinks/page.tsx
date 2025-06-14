@@ -43,16 +43,22 @@ export default function Page() {
 
 function LinkContainer({ kind, title, link, displayLink }) {
   return (
-    <div className="max-w-112 group flex w-full flex-grow flex-col place-content-between items-center rounded-3xl border border-primary-500 px-16 py-4 hover:bg-slate-100 dark:hover:bg-slate-950">
-      <div className="flex flex-row place-content-between items-center">
-        <div>
-          <Link className="flex flex-row gap-4 text-4xl group-hover:text-primary-500" href={link}>
-            <SocialIcon kind={kind} href={link} size={12} iconOnly={true} />
-            {title}
-          </Link>
+    <div className="group relative flex w-full flex-grow flex-col place-content-between items-center rounded-3xl border border-primary-500 px-16 py-4 hover:bg-slate-100 dark:hover:bg-slate-950 sm:w-10/12 md:w-96">
+      <Link
+        className="absolute inset-0 z-10 rounded-3xl focus:outline-none"
+        href={link}
+        aria-label={title}
+        tabIndex={0}
+      >
+        <span className="sr-only">{title}</span>
+      </Link>
+      <div className="pointer-events-none z-20 flex flex-row place-content-between items-center">
+        <div className="flex flex-row gap-4 text-4xl group-hover:text-primary-500">
+          <SocialIcon kind={kind} href={link} size={12} iconOnly={true} />
+          {title}
         </div>
       </div>
-      <p className="text-sm">{displayLink}</p>
+      <p className="pointer-events-none z-20 text-sm">{displayLink}</p>
     </div>
   )
 }
