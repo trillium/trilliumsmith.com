@@ -14,6 +14,7 @@ const AuthorCard = ({ content }) => {
     linkedin,
     github,
     location,
+    twitch,
   } = siteMetadata
   return (
     <div>
@@ -42,6 +43,7 @@ const AuthorCard = ({ content }) => {
             <SocialIcon kind="linkedin" href={linkedin} />
             <SocialIcon kind="twitter" href={twitter} />
             <SocialIcon kind="bluesky" href={bluesky} />
+            <SocialIcon kind="twitch" href={twitch} />
           </div>
         </div>
       </div>

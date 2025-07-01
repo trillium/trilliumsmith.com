@@ -27,6 +27,7 @@ const siteMetadata = {
   // instagram: 'https://www.instagram.com',
   // medium: 'https://medium.com',
   bluesky: 'https://bsky.app/profile/trillium.is',
+  twitch: 'https://www.twitch.tv/trilliumsmith',
   locale: 'en-US',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
