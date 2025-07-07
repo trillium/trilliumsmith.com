@@ -27,6 +27,12 @@ const links = [
     link: siteMetadata.bluesky,
     displayLink: 'bsky.app/profile/trillium.is',
   },
+  {
+    kind: 'twitch',
+    title: 'Twitch',
+    link: siteMetadata.twitch,
+    displayLink: 'twitch.tv/trilliumsmith',
+  },
 ]
 
 export default function Page() {
