@@ -1,0 +1,94 @@
+name: Spell Check
+
+on:
+  pull_request:
+    branches: [main, master]
+    paths:
+      - '**/*.md'
+      - '**/*.mdx'
+      - '**/*.tsx'
+      - '**/*.ts'
+      - 'data/blog/**/*'
+      - 'data/authors/**/*'
+      - 'components/**/*'
+      - 'app/**/*'
+      - 'layouts/**/*'
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run spell check
+        run: |
+          yarn spellcheck:ci
+          echo "Spell check completed"
+        continue-on-error: true
+
+      - name: Upload spell check results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: spellcheck-results
+          path: spellcheck-results.txt
+          retention-days: 30
+
+      - name: Comment PR with spell check results
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let results = '';
+            try {
+              results = fs.readFileSync('spellcheck-results.txt', 'utf8');
+            } catch (error) {
+              results = 'Could not read spell check results file.';
+            }
+
+            const body = `⚠️ **Spell Check Failed**
+
+            The spell check found some issues. Please review the following:
+
+            <details>
+            <summary>Click to see spell check results</summary>
+
+            \`\`\`
+            ${results}
+            \`\`\`
+
+            </details>
+
+            You can run \`yarn spellcheck:report\` locally to see the full results, or \`yarn spellcheck:fix\` to generate a dictionary file with suggestions.
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Comment PR with success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ **Spell Check Passed**\n\nAll files passed the spell check!'
+            })
