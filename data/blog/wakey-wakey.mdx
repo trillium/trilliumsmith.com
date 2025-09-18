@@ -4,6 +4,7 @@ date: '2024-02-02'
 tags: ['Talon Voice']
 draft: false
 summary: Having fun with waking up Talon Voice
+lastmod: '2025-09-18'
 ---
 
 I was recently having trouble getting my `wake up` phrase to work properly in Talon, so I decided to try a phrase I don't use often: `Wakey wakey`.
@@ -21,3 +22,16 @@ wiki wiki | wakey wakey: speech.enable()
 ## What's with the | symbol and the wiki words
 
 The symbol `|` in a talon command means `OR`, so if Talon hears `wiki wiki` or `wakey wakey` then it will run the `speech.enable()` command. Talon Voice does a very good job of recognizing fake words such as `wakey`, but it's also good practice to match what Talon might likely hear, or to pick something that's easier to say.
+
+## Update 2025-09-18
+
+Sometimes I'd still hit some misrecognitions by Talon Voice, I've since updated this command to:
+
+```
+mode: sleep
+-
+
+(wiki | wakey | wake) (wiki | wakey | wake): speech.enable()
+```
+
+Where each of the words in the parentheses can be used, so if the system hears `wake wake` or `wiki wake` or `wiki wiki` those will all wake up Talon.
