@@ -1,0 +1,104 @@
+---
+title: 'What I Learned Building a Keyword Tracker Productivity Tool'
+date: '2024-02-11'
+tags: ['productivity', 'web-apps', 'tools', 'automation']
+draft: false
+summary: 'A lightweight, serverless web app designed to make keyword tracking effortless and shareable for content writers.'
+images:
+  [
+    '/static/images/kwdz.png',
+    '/static/images/canada/mountains.jpg',
+    '/static/images/canada/toronto.jpg',
+  ]
+authors: ['trilliumsmith']
+---
+
+# What I Learned Building a Keyword Tracker Productivity Tool
+
+![Screenshot of Kwdz Keyword Tracker](/static/images/kwdz.png)
+
+## TLDR
+
+Building Kwdz.app was a fun detour into productivity tooling. This lightweight, serverless web app automates keyword tracking for content writers, making it easy to manage SEO keywords, generate document stubs, and share them via URLs. Built with Next.js and MUI, it taught me about performance optimization, integration with existing workflows, and the joy of creating tools that solve real problems, even if they're just for fun.
+
+## The Story
+
+Back in 2022, I took on a contract writing gig to help out a friend. She was churning out blog articles for an e-commerce company and needed assistance to speed up her writing. I'm not an amazing author by any stretch of the word, my writing is pretty mediocre, but the job was straightforward: get some content on the page so she could polish it later.
+
+As we settled into our rhythm, I kept bumping into a frustrating bottleneck: the repetitive task of setting up new Google Docs stub documents. We'd get a list of SEO keywords from the client, including a starting title, headings, and other details, all in a spreadsheet. My job was to transform that data into a structured Google Doc. It was tedious, error-prone, and ate up time that could be spent writing.
+
+This was early in my development career, and I was always on the lookout for ways to automate mundane tasks. Instead of grumbling through the process, I decided to build a tool to handle it. That's how Kwdz.app was born: a simple web app to streamline keyword tracking and document generation.
+
+## Purpose: Eliminating Repetitive Tasks
+
+The core purpose of Kwdz.app was to automate the repetitive, error-prone task of setting up Google Docs stub documents, reducing the time from about 20 minutes to 30 seconds. The app integrated with Google Docs, by allowing users to copy/paste content into the SEO checking box to identify unused keywords and add them back to the document.
+
+## Features
+
+Kwdz.app isn't feature-heavy, but it packs in the essentials for keyword management:
+
+- **Keyword Input and Tracking**: Users can add a list of keywords. URL Sharing: keywords are then added to the URL, allowing sharing of an SEO word config via URL. Paste a content block, which will then be evaluated against the keywords. Get back a block of data for what keywords are missing.
+- **Copy-Paste Utility**: A handy tool to check and copy unused keywords, ensuring nothing slips through the cracks.
+- **Dark Mode Support**: Because who doesn't love a good dark theme?
+
+## Struggles and Solutions
+
+Building Kwdz.app wasn't without its hurdles. One major issue was performance, too many concurrent text transformations were slowing the app down. - With maybe one text transform the app was practically instant, but more transforms, loops, maps for ensuring the words were easily indexable resulted in the app taking a moment on each subsequent input change. - Users couldn't write directly into the content box without the app hanging on longer text To fix this, I added debounce to only run text transform when user was done writing.
+
+Another challenge was ensuring the app worked well across different devices and browsers, but Next.js's serverless nature made deployment straightforward.
+
+## Integrated System
+
+Kwdz.app isn't a standalone powerhouse; its real value shines when integrated into a broader workflow. Alone, it's a nice-to-have tool, but paired with Google Docs, SEO keyword lists, and other productivity apps, it becomes a powerful tool.
+
+For instance, I set up a Python script using `pyautogui` to automate GUI-based actions, like pasting generated content into Google Docs. This created a seamless pipeline: input keywords in Kwdz, generate the doc, and auto-populate it with a script. It turned a multi-step process into a one-click operation. Using the tool while writing gave me a little joy that some frustration I was having would never have to be dealt with again.
+
+## Usage
+
+Here's a sample URL with pre-loaded keywords: [kwdz.app with JavaScript keywords](https://kwdz.app/?k0=eventdriven%20programming&k0=functional%20programming&k0=highlevel%20programming%20language&k0=justintime%20compilation&k0=library&k0=objectoriented%20programming&k0=prototypebased%20programming&k0=source%20code&k0=application%20programming%20interface&k0=client&k0=css&k0=data%20structure&k0=document%20object%20model&k0=dynamic%20typing&k0=ecmascript&k0=firstclass%20function&k0=html&k0=imperative%20programming&k0=javascript%20engine&k0=programming%20language&k0=regular%20expression&k0=user&k0=web%20browser&k0=web%20page&k0=website&k0=world%20wide%20web&k0=javascript&theme=dark&title=Wikipedia%20JavaScript).
+
+![split screen of Kwdz tracker left, Google doc right. Kwdz is showing all SEO terms have been used.](/static/images/kwdz-split-gdocs.png)
+
+## Takeaways
+
+Reflecting on this project, I realized that building tools can be more enjoyable than the tasks they automate. There's something satisfying about solving a problem with code, even if it's a form of procrastination or perfectionism. It keeps the creative juices flowing and sharpens your skills.
+
+Kwdz.app also reinforced the importance of simplicity in design. By focusing on core functionality and avoiding feature bloat, the app remains fast, reliable, and easy to use.
+
+If you're into productivity hacks or just love tinkering with web apps, give Kwdz.app a try. Who knows, it might inspire your next side project.
+
+## The Story
+
+Back in 2022, I took on a contract writing gig to help out a friend. She was churning out blog articles for an e-commerce company and needed assistance to speed things up. I'm not an amazing author by any stretch of the word, my writing is pretty mediocre—but the job was straightforward: get some content on the page so she could polish it later.
+
+As we settled into our rhythm, I kept bumping into a frustrating bottleneck: the repetitive task of setting up new Google Docs stub documents. We'd get a list of SEO keywords from the client, including a starting title, headings, and other details, all in a spreadsheet. My job was to transform that data into a structured Google Doc. It was tedious, error-prone, and ate up time that could be spent writing.
+
+This was early in my development career, and I was always on the lookout for ways to automate mundane tasks. Instead of grumbling through the process, I decided to build a tool to handle it. That's how Kwdz.app was born: a simple web app to streamline keyword tracking and document generation.
+
+## Purpose: Eliminating Repetitive Tasks
+
+The core purpose of Kwdz.app was to remove the drudgery of manual document setup. By automating the stub document build process, it freed up time for more creative work. The app also integrated with Google Docs, though it was a bit clunky but it worked. It operated by having the user copy/paste their blog content from the doc window into the SEO content checking box; from there, the user could get a list of the keywords that weren't used yet, pop that backb into their Google Doc, write, rinse and repeat.
+
+## Features
+
+Kwdz.app isn't feature-heavy, but it packs in the essentials for keyword management:
+
+- **Keyword Input and Tracking**: Users can add keywords, mark them as used, and see at a glance which ones are still available.
+- **Copy-Paste Utility**: A handy tool to check and copy unused keywords, ensuring nothing slips through the cracks.
+- **URL Sharing**: Pre-load keywords via URL parameters, making it easy to share setups with collaborators.
+- **Dark Mode Support**: Because who doesn't love a good dark theme?
+- **Export to Google Docs**: Generate a formatted document stub ready for editing.
+
+## Struggles and Solutions
+
+Building Kwdz.app wasn't without its hurdles. One major issue was performance—too many concurrent text transformations were slowing the app down, especially when processing long lists of keywords. The UI would lag, and it felt sluggish.
+
+To fix this, I implemented debouncing on the input fields. This simple optimization reduced the number of unnecessary updates, smoothing out the user experience. It was a reminder that even small changes can have a big impact on performance.
+
+Another challenge was ensuring the app worked well across different devices and browsers, but Next.js's serverless nature made deployment straightforward.
+
+## Integrated System
+
+Kwdz.app isn't a standalone powerhouse; its real value shines when integrated into a broader workflow. Alone, it's a nice-to-have tool, but paired with Google Docs, SEO keyword lists, and other productivity apps, it becomes a game-changer.
+
+For instance, I set up a Python script using `pyautogui` to automate GUI-based actions, like pasting generated content into Google Docs. This created a seamless pipeline: input keywords in Kwdz, generate the doc, and auto-populate it with a script. It turned a multi-step process into a one-click operation.
