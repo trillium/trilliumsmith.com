@@ -4,9 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
-
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -15,7 +12,7 @@ const ContentSecurityPolicy = `
   img-src * blob: data:;
   media-src *.s3.amazonaws.com;
   connect-src *;
-  font-src 'self';
+  font-src 'self' fonts.gstatic.com;
   frame-src giscus.app
 `
 
@@ -62,7 +59,7 @@ const basePath = process.env.BASE_PATH || undefined
 const unoptimized = process.env.UNOPTIMIZED ? true : undefined
 
 /**
- * @type {import('next/dist/next-server/server/config').NextConfig}
+ * @type {import('next').NextConfig}
  **/
 module.exports = () => {
   const plugins = [withContentlayer, withBundleAnalyzer]
@@ -71,9 +68,7 @@ module.exports = () => {
     basePath,
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-    eslint: {
-      dirs: ['app', 'components', 'layouts', 'scripts'],
-    },
+    // eslint config in next.config.js removed in Next.js 16; use eslint CLI directly
     images: {
       remotePatterns: [
         {
@@ -91,28 +86,19 @@ module.exports = () => {
         },
       ]
     },
-    webpack: (config, options) => {
+    turbopack: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
+    webpack: (config) => {
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       })
-      config.module.rules.push({
-        test: /\.node/,
-        use: {
-          loader: 'raw-loader',
-        },
-      })
-      config.plugins.push(
-        new CopyPlugin({
-          patterns: [
-            {
-              from: require.resolve('pdfjs-dist/build/pdf.worker.min.js'),
-              to: path.join(__dirname, 'public/static/js'),
-            },
-          ],
-        })
-      )
-
       return config
     },
     async rewrites() {

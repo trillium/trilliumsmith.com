@@ -11,17 +11,28 @@
     "composite": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
       "@/data/*": ["data/*"],
       "@/layouts/*": ["layouts/*"],
       "@/css/*": ["css/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "contentlayer/generated": ["./.contentlayer/generated"],
+      "pliny/mdx-components": ["./node_modules/pliny/mdx-components.d.ts"],
+      "pliny/utils/*": ["./node_modules/pliny/utils/*.d.ts"],
+      "pliny/analytics": ["./node_modules/pliny/analytics/index.d.ts"],
+      "pliny/analytics/*": ["./node_modules/pliny/analytics/*.d.ts"],
+      "pliny/search": ["./node_modules/pliny/search/index.d.ts"],
+      "pliny/search/*": ["./node_modules/pliny/search/*.d.ts"],
+      "pliny/ui/*": ["./node_modules/pliny/ui/*.d.ts"],
+      "pliny/comments": ["./node_modules/pliny/comments/index.d.ts"],
+      "pliny/comments/*": ["./node_modules/pliny/comments/*.d.ts"],
+      "pliny/newsletter": ["./node_modules/pliny/newsletter/index.d.ts"],
+      "pliny/newsletter/*": ["./node_modules/pliny/newsletter/*.d.ts"]
     },
     "plugins": [
       {
@@ -39,7 +50,8 @@
     "**/*.json",
     ".contentlayer/generated",
     ".contentlayer/generated/**/*.json",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
