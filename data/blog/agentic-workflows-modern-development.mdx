@@ -1,0 +1,250 @@
+---
+title: 'Building with AI Agents: A Modern Development Workflow'
+date: '2025-11-12'
+tags: ['ai', 'workflow', 'productivity', 'mcp', 'nextjs']
+draft: true
+summary: 'How I leverage AI coding agents, custom MCP tools, and multi-agent processes to accelerate development while maintaining code quality.'
+images:
+  [
+    '/static/images/agentic-workflows/placeholder-1.png',
+    '/static/images/agentic-workflows/placeholder-2.png',
+  ]
+authors: ['trilliumsmith']
+---
+
+I started using AI coding agents beginning this year, 2024. The first iteration was interacting with the chat version of ChatGPT, which wasn't that great of an experience. Pretty quickly after that I switched to a Pro subscription of CoPilot and that really kicked things off. The integration of an AI agent into the code terminal was the glue I had needed to get better results out, and I've been using human-in-the-loop agentic programming since. It's only gotten better since I started.
+
+## The Landscape
+
+Available now is Claude Code, automated code spaces, long running agentic workflows on cloud infrastructure, MCP servers.
+
+I am now consistently using Claude Code in the terminal, and commonly multiple instances at the same time. Using tools like happy coder also unblocks me for long running tasks because happy coder allows me to give Claude the authorization it needs to continue on tasks.
+
+To my knowledge this option of multiple agents and confirmation from afar wasn't available until early this year. It's made a world of difference in my ability to plan and deliver features faster.
+
+## Purpose
+
+The workflow serves three primary goals:
+
+**For Rapid Development**: [How agents accelerate feature development and prototyping]
+
+**For Code Quality**: [How automation and hooks maintain standards]
+
+**For Learning and Iteration**: [How multi-agent processes help refine ideas]
+
+## The Agent Ecosystem
+
+### Code Agents
+
+#### GitHub Copilot Pro
+
+This tool is not as common in my workflow these days because I've switched to using Claude, but it was essential in getting me to figure out how to work on things. Copilot was my first introduction to using Anthropic Sonnet models, which was the toe tip in the pool that I needed.
+
+I still have a Pro subscription for the remainder of the year. I will probably not renew it, however there are now some good agentic development features such as PR reviews.
+
+#### Claude Code
+
+Initial use was in Copilot, integrated into VSCode. Now I use the terminal version instead of the extension, commonly in the integrated terminal, or moving a terminal window into the code pane so that I can have a convenient split view. I run Claude Code via Happy Coder, which will expose those same terminal instances to a web flow or a mobile application.
+
+I use Claude Code to help me organize my understanding of a code base, asking questions like "create me a file of the authentication flow, including file names, function names, and the types the functions use" to give me a better understanding of where different parts of the code base reside. I find this a lot quicker than having to do all these searches myself, and this ability has provided me enough context to build and develop features in new codebases quickly.
+
+#### Opencode.ai
+
+Opencode.ai is a terminal UI tool to guide a GPT model in running workflows and actions. It's open source, and plugs nicely With services that provide subscriptions to LLM services like copilot,. This tool ticks over the responsibility of feeding the language model the tasks it running, as well as when to compact, et. It is nice as an option for getting more out of Chatgpt however at this time I view Claude Code as a superior tool.
+
+### MCP Tools Integration
+
+#### Off-the-Shelf Tools
+
+**Playwright MCP**
+
+I use playwright2 help debug and troubleshoot frontend issues. Playwright has access to chromium witch can then read different property states on the DOM to confirm that cs is styling properly, as well as automate key presses and workflows so the MCP server can be directed2 do custom actions, as well as pipe screenshot images back to the coding agent for a process of development wear the agent can confirm visual elements are on the screen before running another test. This tool has been extremely helpful and me getting to the point where I can essentially use dictation software to get far in my debugging process. If it fails I will get closer into the code to try to discover the problem, but oftentimes spoken word describing the issue to the coding agent is enough to get it to resolve.
+
+**PostHog MCP**
+
+MCP tools like the post hog tool provide rappers around the apis so that we can ask an agent to query states and then the agent turns those queries into something that the pi can understand. I use post hog mcp to interact with their pi and kit me information on my analytics for the services that I run. Post hog also has additional features like feature flags but I haven't integrated yet, but I plan on using mcp services to trigger those as well once they're integrated into my applications
+
+#### Custom-Built MCP Tools
+
+**Google Calendar Access**
+
+I use my google calendar access MCP tool to query my upcoming events, and then create new ones based on strings I provide to the coding agent. For example, recently I wanted to have a notification for a book that I'm interested in ( the second novel in the seriesThe Captive's War), and I used the MCP server to achieve that.
+
+**Gmail Access**
+
+I use gmail MCP to search my emails for specific search strings that have been sent to me from automated services, and then use those emails to verify data in other applications. For example I use the gmail map to get appointment emails from a calendar application and then send them to a session tracking and payment database
+
+## Multi-Agent Workflow Process
+
+[Detailed explanation of your iterative refinement process]
+
+### The Planning Loop
+
+1. **Initial Planning with Claude #1**
+   [How you structure initial prompts and planning]
+
+2. **Refinement with Claude #2**
+   [Passing plans to fresh context for validation]
+
+3. **Iterative Improvement**
+   [How you cycle answers back for refinement]
+
+[DIAGRAM/FLOWCHART opportunity here]
+
+## Code Quality Enforcement
+
+### Pre-commit Hooks
+
+[Your pre-commit hook setup and philosophy]
+
+### Automatic Refactoring
+
+**File Size Management**
+
+- 250+ line threshold
+- Automatic refactor triggers
+- [Benefits and challenges]
+
+## The Stack
+
+### Frontend Framework
+
+- Next.js 15/16
+- [Why this choice for agent-assisted development]
+
+### Styling
+
+- Tailwind CSS (v3/v4)
+- [How agents work with utility-first CSS]
+
+### Component Libraries
+
+- HeadlessUI
+- ShadCN
+- [Agent-friendly component patterns]
+
+### Type Safety
+
+- TypeScript
+- [How type safety improves agent outputs]
+
+### Deployment
+
+- Vercel
+- [CI/CD with agent-generated code]
+
+## Struggles and Solutions
+
+### Challenge: [Agent Hallucinations and Code Quality]
+
+**Problem**: [Description]
+
+**Solution**: [How pre-commit hooks and multi-agent review help]
+
+### Challenge: [Context Management Across Agents]
+
+**Problem**: [Description]
+
+**Solution**: [Your workflow for maintaining context]
+
+### Challenge: [Balancing Speed with Understanding]
+
+**Problem**: [Description]
+
+**Solution**: [How you ensure you understand agent-generated code]
+
+### Challenge: [Tool Integration Complexity]
+
+**Problem**: [Description]
+
+**Solution**: [How MCP standardization helped]
+
+## Integrated Development Flow
+
+[How all these pieces work together in a typical development session]
+
+**Agent Layer**: [Role of different agents]
+
+**Automation Layer**: [Pre-commit hooks and CI/CD]
+
+**Tool Layer**: [MCP integrations]
+
+**Quality Layer**: [Multi-agent review process]
+
+**Deployment Layer**: [Vercel integration]
+
+## Usage Patterns
+
+### Feature Development Journey
+
+1. **Ideation**: [How you start with agents]
+2. **Planning**: [Multi-agent refinement process]
+3. **Implementation**: [Which agent for which task]
+4. **Review**: [Automated checks and manual review]
+5. **Deployment**: [CI/CD flow]
+
+### Daily Development Flow
+
+1. **Morning Planning**: [How you structure your day with agents]
+2. **Active Development**: [Agent switching strategies]
+3. **Quality Checks**: [Pre-commit and testing]
+
+## Takeaways
+
+### Technical Lessons
+
+- **Embrace Multiple Agents**: [Different tools for different tasks]
+- **Build Custom Tools**: [When and why to create MCP servers]
+- **Automate Quality Control**: [Hooks and CI/CD are essential]
+- **Maintain Context Awareness**: [Understanding what agents generate]
+
+### Workflow Lessons
+
+- **Multi-Agent Review Works**: [Benefits of fresh context]
+- **Type Safety Saves Time**: [TypeScript catches agent mistakes]
+- **Pre-commit Hooks Are Essential**: [Maintaining standards]
+- **Choose the Right Agent for the Task**: [When to use which tool]
+
+### Future Evolution
+
+The workflow continues to evolve, with plans for:
+
+- [Expansion of custom MCP tools]
+- [Enhanced multi-agent orchestration]
+- [Deeper integration patterns]
+- [New agent capabilities as they emerge]
+
+## Conclusion
+
+[Wrap up with insights on how this workflow has changed your development practice and what you've learned about working with AI agents]
+
+{/\* Describe your multi-agent refinement process in detail:
+
+For the section 'The Planning Loop' with three subsections:
+
+1. Initial Planning with Claude #1
+   - How do you structure initial prompts?
+   - What do you ask for in the planning phase?
+   - What format do you get back?
+
+I structure my prompts to ask Claude to create an initial scaffolding of a problem I'm having, or a feature I want to implement. For example using redux in a application that currently does not use redux.
+
+in the planning phase I'm asking Claude to provide a general structure. I'll read that structure and then edit things if I think they are incorrect.
+
+2. Refinement with Claude #2
+   - Why pass to a fresh context?
+   - What prompt do you give Claude #2?
+   - What are you looking for in the validation?
+
+Once the plan has been generated I will instantiate an agent with new context to read the plan, and then point out potential issues that I didn't think about , and add them in line.
+
+3. Iterative Improvement
+   - How do you cycle answers back to Claude #1?
+   - When do you stop iterating?
+   - What improvements do you typically see?
+
+Include a concrete example of this process for a real feature you've built.
+
+Aim for 3-4 paragraphs total, one per subsection plus the example.
+
+\*/}
