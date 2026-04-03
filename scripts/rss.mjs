@@ -1,11 +1,27 @@
 import { writeFileSync, mkdirSync } from 'fs'
 import path from 'path'
 import { slug } from 'github-slugger'
-import { escape } from 'pliny/utils/htmlEscaper.js'
 import siteMetadata from '../data/siteMetadata.js'
 import tagData from '../app/tag-data.json' assert { type: 'json' }
-import { allBlogs } from '../.contentlayer/generated/index.mjs'
-import { sortPosts } from 'pliny/utils/contentlayer.js'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const allBlogs = require('../.velite/blogs.json')
+
+const { replace } = ''
+const ca = /[&<>'"]/g
+const esca = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&#39;',
+  '"': '&quot;',
+}
+const pe = (m) => esca[m]
+const escape = (es) => replace.call(es, ca, pe)
+
+function sortPosts(posts) {
+  return posts.sort((a, b) => (a.date > b.date ? -1 : a.date < b.date ? 1 : 0))
+}
 
 const outputFolder = process.env.EXPORT ? 'out' : 'public'
 

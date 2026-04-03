@@ -1,19 +1,13 @@
 {
-  "ai": 1,
-  "workflow": 1,
-  "productivity": 2,
-  "mcp": 1,
-  "nextjs": 2,
-  "web-apps": 2,
+  "productivity": 1,
+  "web-apps": 1,
   "tools": 1,
   "automation": 1,
   "paired-programming": 1,
   "networking": 1,
   "professional-development": 1,
-  "talon-voice": 5,
+  "talon-voice": 4,
   "terminal": 1,
   "remote-desktop": 1,
-  "public-speaking": 1,
-  "booking-system": 1,
   "devlog": 1
 }

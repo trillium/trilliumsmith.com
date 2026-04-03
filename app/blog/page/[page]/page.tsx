@@ -1,6 +1,6 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import { allBlogs } from 'contentlayer/generated'
+import { allCoreContent, sortPosts } from '@/lib/utils/contentlayer'
+import { blogs as allBlogs } from '@/.velite'
 
 const POSTS_PER_PAGE = 5
 

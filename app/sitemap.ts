@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { allBlogs } from 'contentlayer/generated'
+import { blogs as allBlogs } from '@/.velite'
 import siteMetadata from '@/data/siteMetadata'
 
 export const dynamic = 'force-static'

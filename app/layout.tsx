@@ -1,10 +1,8 @@
 import 'css/tailwind.css'
-import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
+import Script from 'next/script'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
@@ -12,6 +10,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 import { CSPostHogProvider } from './providers'
+import { SearchProvider } from '@/components/search/SearchProvider'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -61,8 +60,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const basePath = process.env.BASE_PATH || ''
-
-  console.log(siteMetadata.analytics)
+  const isProduction = process.env.NODE_ENV === 'production'
 
   return (
     <html
@@ -88,11 +86,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         href={`${basePath}/static/favicons/favicon-16x16.png`}
       />
       <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
-      {/* <link
-        rel="mask-icon"
-        href={`${basePath}/static/favicons/safari-pinned-tab.svg`}
-        color="#5bbad5"
-      /> */}
       <meta name="msapplication-TileColor" content="#000000" />
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
@@ -100,10 +93,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <CSPostHogProvider>
           <ThemeProviders>
-            <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
+            {isProduction && siteMetadata.analytics?.umamiAnalytics?.umamiWebsiteId && (
+              <Script
+                async
+                defer
+                src="https://analytics.umami.is/script.js"
+                data-website-id={siteMetadata.analytics.umamiAnalytics.umamiWebsiteId}
+              />
+            )}
             <SectionContainer>
               <div className="flex h-screen flex-col justify-between font-sans">
-                <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+                <SearchProvider searchConfig={siteMetadata.search || {}}>
                   <Header />
                   <main className="mb-auto">{children}</main>
                 </SearchProvider>

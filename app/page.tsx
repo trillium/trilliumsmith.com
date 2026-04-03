@@ -1,5 +1,6 @@
-import { sortPosts, allCoreContent, coreContent } from 'pliny/utils/contentlayer'
-import { Authors, allBlogs, allAuthors } from 'contentlayer/generated'
+import { sortPosts, allCoreContent, coreContent } from '@/lib/utils/contentlayer'
+import { blogs as allBlogs, authors as allAuthors } from '@/.velite'
+import type { Authors } from '@/.velite'
 import Main from './Main'
 import AuthorCard from '@/components/AuthorCard'
 
