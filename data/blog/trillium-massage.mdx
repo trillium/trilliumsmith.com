@@ -1,0 +1,194 @@
+---
+title: 'Building a Calendar-Integrated Modern Booking Platform'
+date: '2025-09-19'
+tags: ['nextjs', 'web-apps', 'booking-system']
+draft: false
+summary: 'How I built a comprehensive booking and management platform for my massage therapy business using modern web technologies.'
+images:
+  [
+    '/static/images/trillium-massage/booking.png',
+    '/static/images/trillium-massage/landing.png',
+    '/static/images/trillium-massage/reviews.png',
+  ]
+authors: ['trilliumsmith']
+---
+
+By far my favorite thing about software development is building real tools that solve real business problems for actual people. Of course, easiest place to start is things I already know, and boy did I ever have a problem pre-covid.
+
+Some of you might know this, but I've been a licensed massage therapist since ~2015. Massage therapy has been a consistent side hussle for me for as long as I've been a developer, and it has continued to drive me to build better software, particularly in the calendar booking space.
+
+## The Struggle
+
+There are many booking systems out there, some of them are configued better or worse for a solo-entrepreneur. Pre-covid, prior to me having enough knowledge to truely build my own solution, I was relying on calendly and squarespace to create a functional booking site.
+
+Up to this point, I haven't seen a tool that intentionally puts a solo massage therapist at the center of the booking platform.
+
+What I needed was something that would take into account Google Calendar free/busy times, be highly automated, and function without having to deal directly with the admin tools.
+
+What I settled on was a system that keeps calendar events at the center, using them to configure availability windows, booking times, and promotional events.
+
+## Purpose
+
+The platform serves three primary audiences:
+
+**For Clients**: A user-friendly way to discover services, check availability, and book appointments.
+
+**For Business Operations**: Tools to manage bookings, handle customer inquiries, and maintain service quality.
+
+**For Marketing**: A professional showcase of services, client testimonials, and educational content to attract new clients.
+
+![Landing Page Screenshot](/static/images/trillium-massage/landing.png)
+
+The core goal was to create a system that would keep a solo-entrepreneur at the center, building tools that will remove hassle and complexity of the daily slog of managing multiple inbound client messages and balancing a calendar.
+
+## Features
+
+SEO friendly marketing pages
+Up to date availability
+Push notifications for client inquiry
+
+## Built with
+
+- Nextjs JS 15 (App router)
+- Tailwind
+- Redux
+- Markdown
+- Google Calendar API
+- Nodemailer
+- Pushover
+- Typescript
+- Zod
+
+### Core Booking System
+
+- **Dynamic Booking Flow**: Customizable booking pages with location-specific pricing and availability
+- **Instant Confirmation**: Real-time booking validation with immediate email confirmations
+- **Flexible Scheduling**: Calendar integration with timezone-aware appointment management
+- **Service Customization**: Multiple massage types (Swedish, Deep Tissue, Couples) with varying durations
+
+![Booking Page Screenshot](/static/images/trillium-massage/booking.png)
+
+### Immediate notifications for client inquiry
+
+- **pushover integration**
+
+### Interactive Service Maps
+
+- **MapLibre Integration**: Open-source mapping with custom service area visualization
+- **Geocoding**: Address validation and drive-time calculations
+- **Location-Based Availability**: Dynamic pricing based on service location
+- **Mobile-Responsive**: Optimized map experience across all devices
+
+### Customer Experience
+
+- **Review Management**: Client testimonial collection and display system
+- **Secure Event Access**: Email-verified client portals for viewing appointments
+- **Promotional System**: Discount codes and special offers with expiration handling
+- **Content Marketing**: MDX-powered blog for service information and wellness tips
+
+![Reviews Screenshot](/static/images/trillium-massage/reviews.png)
+
+### Admin Dashboard
+
+- **Booking Management**: Comprehensive appointment tracking and modification tools
+- **Analytics Integration**: PostHog-powered insights into business performance
+- **Gmail API Integration**: Automatic calendar synchronization and third-party booking imports
+- **User Access Control**: Secure admin authentication with role-based permissions
+
+### Technical Features
+
+- **Type-Safe Development**: Full TypeScript implementation with Zod validation
+- **Modern UI/UX**: Tailwind CSS with responsive design and accessibility compliance
+- **Performance Optimized**: Next.js 15 with static generation and image optimization
+- **Testing Suite**: Comprehensive Vitest coverage with automated CI/CD
+
+## Struggles and Solutions
+
+### Challenge: Complex Location Management
+
+**Problem**: Early versions used simple string fields for addresses, making it difficult to handle city/zip code logic and URL-based location configuration.
+
+**Solution**: Implemented a structured `LocationObject` type with dedicated parsing utilities. This enabled proper slug-based routing (e.g., `/westchester`, `/culver-city`) and consistent location handling across forms, APIs, and templates.
+
+### Challenge: Calendar Complexity
+
+**Problem**: Managing appointments across multiple systems (Google Calendar, internal booking, third-party platforms) led to synchronization issues and double-bookings, compounded by multiple monthly service fees for services that ultimately were only a mild fit for the usecase.
+
+**Solution**: Built a Gmail API integration that automatically imports bookings from platforms like Soothe, with intelligent conflict resolution and calendar event creation. The system now handles timezone conversions and maintains data consistency.
+
+### Challenge: Form Validation and User Experience
+
+**Problem**: Complex booking forms with multiple validation rules were causing user frustration and submission errors.
+
+**Solution**: Adopted Formik with Zod schemas for type-safe, client-side validation. This provided real-time feedback, prevented invalid submissions, and ensured data consistency across the entire booking flow.
+
+### Challenge: Scaling Content Management
+
+**Problem**: As the business grew, managing service descriptions, pricing, and promotional content became time-consuming.
+
+**Solution**: Implemented Contentlayer2 for MDX-based content management. This allows for rich content creation with proper SEO optimization, while maintaining type safety and build-time validation.
+
+## Integrated System
+
+The platform operates as a cohesive ecosystem:
+
+**Frontend Layer**: Next.js 15 with App Router provides server-side rendering and optimal performance.
+
+**State Management**: Redux Toolkit handles complex booking flows and user session management.
+
+**API Layer**: RESTful endpoints manage bookings, events, and admin operations with proper authentication.
+
+**Integration Layer**: Gmail API and PostHog analytics ensure seamless data flow and business insights.
+
+**Content Layer**: MDX files power the blog and static content with automatic optimization.
+
+**Deployment**: Vercel provides global CDN distribution with automated builds and environment management.
+
+## Usage
+
+### Client Journey
+
+1. **Discovery**: Clients find the site through search or referrals
+2. **Service Selection**: Browse services, read reviews, check service areas
+3. **Booking**: Select location, time, and service type with instant confirmation
+4. **Preparation**: Receive automated reminders and preparation instructions
+5. **Session**: Enjoy professional in-home massage therapy
+6. **Follow-up**: Leave reviews and manage future appointments
+
+![FAQ page Screenshot](/static/images/trillium-massage/faq.png)
+
+### Business Operations
+
+1. **Daily Management**: Check admin dashboard for new bookings and schedule
+2. **Client Communication**: Automated emails for confirmations and reminders
+
+### Technical Maintenance
+
+1. **Code Quality**: Automated linting, testing, and type checking
+2. **Performance Monitoring**: Build analysis and runtime optimization
+
+## Takeaways
+
+### Technical Lessons
+
+- **Start with Type Safety**: TypeScript + Zod caught countless bugs before they reached production
+- **Prioritize User Experience**: Complex features are worthless if clients can't use them effectively
+- **Build for Scale**: Modular architecture made it easy to add features as the business grew
+- **Automate Everything**: CI/CD, testing, and monitoring reduced maintenance overhead significantly
+
+### Business Lessons
+
+- **Professional Online Presence Matters**: The website became a key marketing asset and credibility builder
+- **Data-Driven Decisions**: Analytics revealed booking patterns and helped optimize service offerings
+- **Client-Centric Design**: Features that improved client experience directly correlated with business growth
+- **Balance Automation with Personal Touch**: Technology should enhance, not replace, human connection
+
+### Future Vision
+
+The platform has become the foundation for business growth, with plans for:
+
+- Mobile app development
+- Advanced analytics and reporting
+- Enhanced client relationship management
+- Location-based on-demand booking
+- Accounting for travel time between appointments for reduced down time between sessoins
