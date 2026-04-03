@@ -52,3 +52,4 @@ dictionary.txt
 spellchecker
 spellcheck-results.txt
 cspell-results.txt
+.env*.local

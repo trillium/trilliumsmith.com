@@ -1,9 +1,5 @@
 {
-  "ai": 1,
-  "workflow": 1,
-  "productivity": 2,
-  "mcp": 1,
-  "nextjs": 2,
+  "productivity": 1,
   "web-apps": 2,
   "tools": 1,
   "automation": 1,
@@ -14,6 +10,7 @@
   "terminal": 1,
   "remote-desktop": 1,
   "public-speaking": 1,
+  "nextjs": 1,
   "booking-system": 1,
   "devlog": 1
 }
