@@ -1,12 +1,12 @@
 import { genPageMetadata } from 'app/seo'
 import SocialIcon from '@/components/social-icons'
-import siteMetadata from '@/data/siteMetadata'
+import LiveCountdown from './LiveCountdown'
 
 // Force dynamic rendering so searchParams are always fresh
 export const dynamic = 'force-dynamic'
 
 interface LivePageProps {
-  searchParams: Promise<{ title?: string; topic?: string }>
+  searchParams: Promise<{ title?: string; topic?: string; time?: string }>
 }
 
 export async function generateMetadata({ searchParams }: LivePageProps) {
@@ -18,17 +18,15 @@ export async function generateMetadata({ searchParams }: LivePageProps) {
     ? `Trillium is streaming: ${title} — ${topic}`
     : `Trillium is streaming: ${title}`
 
-  const ogImageUrl = `/live/opengraph-image${
-    params.title || params.topic
-      ? '?' +
-        new URLSearchParams(
-          Object.fromEntries(
-            Object.entries({ title: params.title, topic: params.topic }).filter(
-              ([, v]) => v !== undefined
-            ) as [string, string][]
-          )
-        ).toString()
-      : ''
+  const ogSearchParams = new URLSearchParams(
+    Object.fromEntries(
+      Object.entries({ title: params.title, topic: params.topic, time: params.time }).filter(
+        ([, v]) => v !== undefined
+      ) as [string, string][]
+    )
+  )
+  const ogImageUrl = `/api/og/live${
+    ogSearchParams.toString() ? '?' + ogSearchParams.toString() : ''
   }`
 
   return genPageMetadata({
@@ -42,14 +40,19 @@ export default async function LivePage({ searchParams }: LivePageProps) {
   const params = await searchParams
   const title = params.title || 'Come hang out!'
   const topic = params.topic
+  const time = params.time
 
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-16 text-center">
-      {/* Live badge */}
-      <div className="mb-6 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5">
-        <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
-        <span className="text-sm font-semibold uppercase tracking-widest text-red-500">Live</span>
-      </div>
+      {/* Live badge / countdown */}
+      {time ? (
+        <LiveCountdown time={time} />
+      ) : (
+        <div className="mb-6 flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5">
+          <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
+          <span className="text-sm font-semibold uppercase tracking-widest text-red-500">Live</span>
+        </div>
+      )}
 
       {/* Main heading */}
       <h1 className="mb-2 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">

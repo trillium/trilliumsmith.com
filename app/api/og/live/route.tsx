@@ -1,27 +1,48 @@
 import { ImageResponse } from 'next/og'
-
-export const size = { width: 1200, height: 630 }
-export const contentType = 'image/png'
+import { NextRequest } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
-export default async function Image({
-  searchParams,
-}: {
-  searchParams?: Promise<{ title?: string; topic?: string }>
-}) {
-  const params = searchParams ? await searchParams : {}
-  const title = params.title || 'Come hang out!'
-  const topic = params.topic || null
+const size = { width: 1200, height: 630 }
+
+function parseTime(time: string): Date | null {
+  if (/^\d+$/.test(time)) {
+    const n = Number(time)
+    return new Date(n < 1e10 ? n * 1000 : n)
+  }
+  const d = new Date(time)
+  return isNaN(d.getTime()) ? null : d
+}
+
+function formatOgTime(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  }).format(date)
+}
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl
+  const title = searchParams.get('title') || 'Come hang out!'
+  const topic = searchParams.get('topic') || null
+  const timeParam = searchParams.get('time')
+  const targetTime = timeParam ? parseTime(timeParam) : null
+  const isUpcoming = targetTime && targetTime.getTime() > Date.now() + 2 * 60 * 1000
+  const timeLabel = targetTime ? formatOgTime(targetTime) : null
 
   // Fetch Space Grotesk from Google Fonts
-  const fontData = await fetch(
-    'https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gozwSiB.woff'
-  ).then((res) => res.arrayBuffer())
-
-  const fontBoldData = await fetch(
-    'https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gozwSiB.woff'
-  ).then((res) => res.arrayBuffer())
+  const [fontData, fontBoldData] = await Promise.all([
+    fetch(
+      'https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUUsj.ttf'
+    ).then((res) => res.arrayBuffer()),
+    fetch(
+      'https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVksj.ttf'
+    ).then((res) => res.arrayBuffer()),
+  ])
 
   return new ImageResponse(
     (
@@ -64,7 +85,7 @@ export default async function Image({
           }}
         />
 
-        {/* LIVE badge */}
+        {/* LIVE / UPCOMING badge */}
         <div
           style={{
             display: 'flex',
@@ -78,24 +99,26 @@ export default async function Image({
               width: '14px',
               height: '14px',
               borderRadius: '50%',
-              background: '#ef4444',
+              background: isUpcoming ? '#14b8a6' : '#ef4444',
               flexShrink: 0,
             }}
           />
           <div
             style={{
-              background: 'rgba(239,68,68,0.15)',
-              border: '1px solid rgba(239,68,68,0.4)',
+              background: isUpcoming ? 'rgba(20,184,166,0.15)' : 'rgba(239,68,68,0.15)',
+              border: isUpcoming
+                ? '1px solid rgba(20,184,166,0.4)'
+                : '1px solid rgba(239,68,68,0.4)',
               borderRadius: '999px',
               padding: '4px 16px',
-              color: '#ef4444',
+              color: isUpcoming ? '#14b8a6' : '#ef4444',
               fontSize: '18px',
               fontWeight: 700,
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
             }}
           >
-            LIVE
+            {isUpcoming ? 'UPCOMING' : 'LIVE'}
           </div>
         </div>
 
@@ -143,6 +166,24 @@ export default async function Image({
           </div>
         )}
 
+        {/* Time label */}
+        {timeLabel && (
+          <div
+            style={{
+              fontSize: '24px',
+              color: '#9ca3af',
+              fontWeight: 500,
+              marginTop: '16px',
+              letterSpacing: '-0.01em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            {timeLabel}
+          </div>
+        )}
+
         {/* Footer row */}
         <div
           style={{
@@ -183,14 +224,14 @@ export default async function Image({
         {
           name: 'Space Grotesk',
           data: fontData,
-          style: 'normal',
-          weight: 400,
+          style: 'normal' as const,
+          weight: 400 as const,
         },
         {
           name: 'Space Grotesk',
           data: fontBoldData,
-          style: 'normal',
-          weight: 800,
+          style: 'normal' as const,
+          weight: 700 as const,
         },
       ],
     }
