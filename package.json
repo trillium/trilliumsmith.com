@@ -21,7 +21,7 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "20.x"
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
