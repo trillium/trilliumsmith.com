@@ -1,36 +1,23 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
 import type { ProxyConfig } from 'next/dist/server/web/types'
-
-const BASE_DOMAIN = 'trilliumsmith.com'
+import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+import { parseHost } from '@/lib/rd'
 
 export function proxy(request: NextRequest) {
   const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || ''
-  const hostname = host.split(':')[0] // strip port for local dev
+  const result = parseHost(host)
 
-  // No subdomain — bare domain or www, pass through
-  if (
-    hostname === BASE_DOMAIN ||
-    hostname === `www.${BASE_DOMAIN}` ||
-    !hostname.endsWith(`.${BASE_DOMAIN}`)
-  ) {
-    return NextResponse.next()
+  const requestHeaders = new Headers(request.headers)
+
+  if (!('passthrough' in result)) {
+    requestHeaders.set('x-company', result.company)
+    requestHeaders.set('x-role', result.role)
   }
 
-  // Extract subdomain: e.g. "posthog-senior_frontend_engineer" from "posthog-senior_frontend_engineer.trilliumsmith.com"
-  const subdomain = hostname.replace(`.${BASE_DOMAIN}`, '')
+  const url = request.nextUrl.clone()
+  url.pathname = `/api${url.pathname}`
 
-  // Split on first dash: company-role_or_jd
-  const dashIndex = subdomain.indexOf('-')
-  const company = dashIndex > 0 ? subdomain.slice(0, dashIndex) : subdomain
-  const role = dashIndex > 0 ? subdomain.slice(dashIndex + 1) : 'unknown'
-
-  // Pass company and role downstream via request headers
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('x-company', company)
-  requestHeaders.set('x-role', role)
-
-  return NextResponse.next({
+  return NextResponse.rewrite(url, {
     request: {
       headers: requestHeaders,
     },

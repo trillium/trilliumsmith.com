@@ -1,20 +1,14 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 import { PostHog } from 'posthog-node'
-
-const DESTINATION_MAP: Record<string, string> = {
-  github: 'https://github.com/trillium',
-  bluesky: 'https://bsky.app/profile/trilliumsmith.com',
-  website: 'https://trilliumsmith.com',
-  email: 'mailto:trillium@trilliumsmith.com',
-}
+import { resolveDestination } from '@/lib/rd'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ destination: string }> }
+  { params }: { params: Promise<{ destination: string }> },
 ) {
   const { destination } = await params
-  const targetUrl = DESTINATION_MAP[destination]
+  const targetUrl = resolveDestination(destination)
 
   if (!targetUrl) {
     return NextResponse.json({ error: `Unknown destination: ${destination}` }, { status: 404 })
