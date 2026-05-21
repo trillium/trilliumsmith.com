@@ -15,7 +15,7 @@ export async function GET(
   }
 
   const company = request.headers.get('x-company') || 'unknown'
-  const role = request.headers.get('x-role') || 'unknown'
+  const role = (request.headers.get('x-role') || 'unknown').replaceAll('_', ' ')
   const forwarded = request.headers.get('x-forwarded-for') || 'unknown'
   const ip = forwarded.split(',')[0].trim()
   const source = request.nextUrl.searchParams.get('src') || 'direct'

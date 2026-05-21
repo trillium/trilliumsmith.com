@@ -1,12 +1,8 @@
-export const BASE_DOMAIN = 'trilliumsmith.com'
+import { DESTINATION_MAP } from './destinations'
 
-export const DESTINATION_MAP: Record<string, string> = {
-  github: 'https://github.com/trillium',
-  bluesky: 'https://bsky.app/profile/trillium.is',
-  website: 'https://trilliumsmith.com',
-  linkedin: 'https://linkedin.com/in/trilliumsmith',
-  email: 'mailto:trillium@trilliumsmith.com',
-}
+export { DESTINATION_MAP }
+
+export const BASE_DOMAIN = 'trilliumsmith.com'
 
 export function parseHost(host: string): { passthrough: true } | { company: string; role: string } {
   const hostname = host.split(':')[0]
