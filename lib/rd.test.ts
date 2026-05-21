@@ -61,7 +61,7 @@ describe('parseHost', () => {
 describe('resolveDestination', () => {
   test('resolves known destinations', () => {
     expect(resolveDestination('github')).toBe('https://github.com/trillium')
-    expect(resolveDestination('bluesky')).toBe('https://bsky.app/profile/trilliumsmith.com')
+    expect(resolveDestination('bluesky')).toBe('https://bsky.app/profile/trillium.is')
     expect(resolveDestination('website')).toBe('https://trilliumsmith.com')
     expect(resolveDestination('email')).toBe('mailto:trillium@trilliumsmith.com')
   })
