@@ -18,6 +18,8 @@ export async function GET(
   const role = request.headers.get('x-role') || 'unknown'
   const forwarded = request.headers.get('x-forwarded-for') || 'unknown'
   const ip = forwarded.split(',')[0].trim()
+  const source = request.nextUrl.searchParams.get('src') || 'direct'
+  const userAgent = request.headers.get('user-agent') || 'unknown'
 
   const posthog = new PostHog(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
     host: 'https://us.i.posthog.com',
@@ -31,6 +33,8 @@ export async function GET(
       role,
       destination,
       url: targetUrl,
+      source,
+      user_agent: userAgent,
       ip,
     },
   })
