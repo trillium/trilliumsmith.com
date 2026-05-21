@@ -21,6 +21,7 @@
       "@/data/*": ["data/*"],
       "@/layouts/*": ["layouts/*"],
       "@/css/*": ["css/*"],
+      "@/lib/*": ["lib/*"],
       "contentlayer/generated": ["./.contentlayer/generated"],
       "pliny/mdx-components": ["./node_modules/pliny/mdx-components.d.ts"],
       "pliny/utils/*": ["./node_modules/pliny/utils/*.d.ts"],
