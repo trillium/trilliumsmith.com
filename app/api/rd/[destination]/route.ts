@@ -19,7 +19,7 @@ export async function GET(
   const forwarded = request.headers.get('x-forwarded-for') || 'unknown'
   const ip = forwarded.split(',')[0].trim()
 
-  const posthog = new PostHog(process.env.POSTHOG_API_KEY!, {
+  const posthog = new PostHog(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
     host: 'https://us.i.posthog.com',
   })
 
