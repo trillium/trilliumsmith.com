@@ -1,0 +1,54 @@
+---
+title: Accessible software is better for everybody
+date: '2026-07-24'
+tags: ['Accessibility', 'Software Development', 'Linux', 'Voice Interfaces', 'Developer Experience']
+draft: false
+summary: 'Accessibility features are not just accommodations—they are better interfaces that benefit everyone, from voice users to power users.'
+authors: ['trilliumsmith']
+---
+
+# Accessible software is better for everybody
+
+I am a voice accessibility user. I don't really have a burning need to be one—my body works, I can type just fine—but what I find is that I enjoy the experience of voice commands and dictation, especially out and about or untethered from my desk, more than sitting down to write or tap on a keyboard.
+
+These tools really only exist because there are people who genuinely rely on them and need them, but it doesn't have to be that way.
+
+Tools designed with accessibility in mind end up being better for everybody who uses them, not just the people who need them. That little divot in the curb is there because of wheelchair accessibility, yet we all benefit from being able to step onto a curb slightly easier. And there might be a day where you yourself are in a wheelchair, you hurt your wrist and need accessibility tools in order to work, or you have problems with your eyesight and need to rely on audio accessibility tools in order to get by.
+
+Or you could simply be an enthusiastic supporter who uses these tools in tandem. A multimodal user.
+
+There are things that I find easier to do by dictating. There are things that I find easier to do by using voice commands. And there are things that I find easier to do using a keyboard and mouse.
+
+Just because it's easier to do something one way doesn't mean you can't learn the other way, and it doesn't mean that other way can't inform how you move through the world.
+
+In order for these tools to work, they need the right permissions. They have to be able to understand what's on your screen, know what is active, understand the structure of windows and controls, know what has focus, and sometimes interact with those controls on your behalf.
+
+Accessibility software doesn't work by simply looking at pixels on a screen. Modern accessibility systems rely on operating-system accessibility APIs that expose information about applications: things like the role of an element, its name, its current state, its position, what has focus, and what actions can be performed. These APIs exist because assistive technologies need a reliable way to understand and interact with software.
+
+Without these APIs, developers of accessibility tools are forced to build workarounds, guessing what is on the screen instead of receiving information directly from the operating system. Those workarounds can be fragile, incomplete, or impossible to build for certain use cases.
+
+This is where modern Linux desktop development becomes complicated. Accessibility infrastructure needs more than just the ability to draw pixels. It needs ways to understand applications, know their state, and sometimes interact with them. GNOME's accessibility documentation specifically calls out needs like understanding application structure, interacting with UI elements, and handling information that accessibility tools depend on.
+
+Newer Linux display systems like Wayland were designed with stronger application isolation and security boundaries, but those changes mean some assumptions that older accessibility tools relied on no longer exist in the same way. Accessibility solutions need new APIs and infrastructure built around those security models.
+
+If those accessibility APIs are never built, it means there are people who will be gated from using those systems because, for one reason or another, their bodies work differently. I personally think that's the wrong choice.
+
+Software built with accessibility in mind is better software for everybody. You yourself might one day need accessibility tools. You might become the next power user, combining voice, keyboard, mouse, and other input methods in ways we don't even think about today.
+
+You shouldn't be gated from using an operating system simply because the accessibility APIs were never provided.
+
+There are safe, reliable ways of doing this. macOS and Windows both have mature authorization and permission mechanisms that allow accessibility tools to operate with controlled access. Linux can do this too; the challenge is building the infrastructure that provides those capabilities while maintaining modern security models.
+
+## Sources
+
+- W3C — Core Accessibility API Mappings (Core-AAM)  
+  https://www.w3.org/TR/core-aam-1.1/
+
+- Microsoft Learn — Accessibility overview and Windows UI Automation documentation  
+  https://learn.microsoft.com/en-us/windows/apps/design/accessibility/accessibility-overview
+
+- GNOME Wiki — GTK Accessibility  
+  https://wiki.gnome.org/Projects/GTK/Accessibility
+
+- Linux Foundation — AT-SPI accessibility infrastructure  
+  https://wiki.linuxfoundation.org/accessibility/atk/at-spi/start
