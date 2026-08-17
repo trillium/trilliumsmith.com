@@ -1,0 +1,163 @@
+---
+title: 'Parlay: Voice-First Agent Orchestration'
+date: '2026-08-16'
+tags: ['parlay', 'ai-agents', 'voice', 'chat', 'tooling']
+draft: true
+summary: 'Parlay is a small event-driven command server for AI agents — voice-first input, a message bus, and event-driven spawning. Here is what it is, why I built it, and how to get started.'
+authors: ['trilliumsmith']
+---
+
+# Parlay: Voice-First Agent Orchestration
+
+## TLDR
+
+Parlay is a multi tool. Mashing together event driven agent orchestration voice dictation And agent-to-agent communications. Today we will be taking a closer look at the voice dictation angle of parlay.
+
+If you'd rather jump right in, point your agent at the [implementation example document](https://github.com/trillium/parlay/tree/main/examples).
+
+# Table of Contents
+
+- The Story
+- What Parlay is (how it works)
+- Voice-first input
+- How to use this
+- The message bus
+- Event-driven spawning
+- The problem it solves
+- How to get started
+- Honest caveats
+- Closing
+
+## The Story
+
+Ever since the release of Claude Sonnet 4.6, I recognize that I've really enjoyed writing code and and shipping features with agents. As a accessibility user, I have a very robust voice based dictation suite on my laptop, but that suite does not extend anywhere else. Over time I've found myself away from my computer more and more.
+
+I started to use Chrome Remote Desktop to get back into my laptop and poke my AI agent windows to keep working, or kick off new tasks, which was functionally fine, but very cumbersome. I really wanted something that would preserve the effectiveness of my voice-based workflows, and thought `this can't be that hard`. Thus: Parlay.
+
+- Dream version: "Voice First: Code Anywhere" — dictate on your phone while walking the dog; an agent on a machine elsewhere picks it up, works, replies to the same thread.
+- Needed a substrate: a place where a message lands, routes to the right agent, and streams a reply back. That became Parlay.
+- Prototype → first thing I check every morning.
+- Honest framing: alpha, single-owner, built around my exact workflow. Maybe it works for you too.
+
+## What Parlay is
+
+Parlay is a small set of tools that will allow any text to act as a command trigger. The command server evaluates the text; if any of the active commands are a match, it kicks off their subsequent action.
+
+The flow is one up-channel and one down-channel. A monitored input POSTs its buffer to the command server on every edit; the server evaluates it and pushes actions back over the SSE stream to that same input (clear the box, submit, show a picker). Event trigger scripts are the other ingestion path — they append JSONL files that the server tails (two background loops watch the files and turn each write into a live event) and routes to subscribers. The response always travels the same SSE down-channel: for an input, a verb applied back to that input; for a tailed stream, a routed event to whoever subscribed.
+
+The command server by itself only handles the event streams, which are JSONL files that are monitored and then routed if there is a subscriber to them.
+
+The inputs are named instances where change events are sent. The command server handles evaluating if a command exists, and responds.
+
+Monitored apps are responsible for accepting commands and acting on them, they must be defined on the server and on the client
+
+Event trigger scripts are scripts that write into some JSONL event streams, for the command server to handle and dispatch.
+
+### Voice-first input
+
+The tool itself depends on dictation engines that are local to the devices we own; it does not ship its own dictation engine. We can alias commands together, so for exmaple,
+
+```text
+What is the status
+What is the stats brave
+What is the status bravely. # <-- Command server detects `bravely`
+```
+
+In my personal configuration, this will now trigger `send` inside the input box for text `What is the status`
+
+- The exact flow: phone dictation lands in the herdr-web input box (wrapped by `parlay-input`), every edit POSTs the buffer to the server, the server evaluates it against the compiled command registry, matches the trailing trigger word (`bravely`), and pushes a `submitNow` back over SSE with the trigger word stripped. The box then submits the cleaned text (`What is the status`). Matching happens server-side against the command list before anything is routed; the agent sees the cleaned text, never the trigger word or a structured event.
+
+### How to use this
+
+At the moment I personally primarily use this system via [my fork of herdr-web](https://github.com/trillium/herdr-web), which wraps the input box there with the input monitoring system. It contains the following commands:
+
+| Command               | Action                     |
+| --------------------- | -------------------------- | -------- | ------------------------------- |
+| `change inside input` | Clears the input           |
+| `bravely              | gravely                    | briefly` | Clears line ender word, submits |
+| `next`                | Go to the next chat window |
+
+That's it, and at the moment, it is enough. I expect to expand it in the future to do more things, but this gets me far enough along.
+
+If you'd like to get a setup like this, check out the example [github.com/trillium/parlay/tree/main/examples](https://github.com/trillium/parlay/tree/main/examples)
+
+---
+
+<!--
+Working notes — not blog content, resolve before publish:
+
+Missing content:
+- Separation of concerns diagram (flow now answered in prose above).
+- Voice path diagram.
+- Watch channels: how they work, how to subscribe, what the JSONL files look like.
+- Beads: how they're created, how the done signal works in practice.
+- herdr-web setup: step-by-step for getting the voice path working.
+- Quickstart: more detail on setting PARLAY_DATA_DIR and PAI_DIR correctly.
+- Honest caveats: more specifics on what's rough and what's not.
+- Closing: stronger call to action.
+
+Features to ship/merge:
+- Voice path: stabilize and document herdr-web fork integration.
+- Watch channels: document subscription and JSONL format.
+- Beads: ship event trigger for bead updates/closes.
+- Chat panel: release as side panel in `packages/client/`.
+- Command list: document how to define commands and aliases.
+- Quickstart: write detailed setup guide.
+- Examples: add more worked examples.
+- Mermaid diagrams: add rendering support to the site (or convert to static images).
+
+QUESTION (captain): Should the voice dictation details (herdr-web setup, command definitions, voice path diagram) go in a separate post, or stay here?
+-->
+
+### The message bus
+
+- Agents subscribe to a watch channel — at its simplest, a file that grows over time.
+- The channel injects events into their stream — no request/response ceremony.
+- Agent to agent — same routing as a human message; the server doesn't care who sends.
+- Human to agent — through chat panels or server-monitored inputs.
+- Deterministic process to agent — a script or queue can append events.
+  - Direction I'm working toward: beads as the issue-triage layer; bead events reaching an orchestration agent directly.
+
+### Event-driven spawning
+
+- A new issue can spawn a fresh agent to resolve it.
+- Example: a tooling-defect ticket lands in my defects queue → Parlay spawns an agent to fix that entry on its own.
+- The done signal is the key:
+  - The filing agent subscribes to the bead as a watch channel.
+  - Gets an event when the bead is updated (e.g. fixer asks for more info) and when it closes.
+  - A closed bead = unambiguous "this task is done."
+  - Naive "append complaints to a file" has no done signal — that's why beads exist.
+- This section is the direction I'm working toward, not shipped behavior yet — the exact mechanics (what triggers a spawn, the update/close event payload, whether the spawned agent reports back or just updates the bead) are still open design. What's settled is the shape: a bead event reaches an orchestration agent, which spawns a worker and subscribes to the bead as its done-signal, so a closed bead means "this task is done."
+
+## The problem it solves
+
+- Agents multiply; disconnected contexts I had to chase one by one.
+- Missing piece wasn't an orchestration framework — one place where I and my agents can all talk, and work flows between them.
+- The bottleneck in agentic development isn't the agents — it's the human in the loop.
+
+## How to get started
+
+- [Bun](https://bun.sh) monorepo + Go CLI. Standalone — no accounts, no hosted service.
+- Quickstart:
+  1. Clone + `bun install`.
+  2. Start the server on :4242 (`PARLAY_DATA_DIR` + `PAI_DIR` set).
+  3. Point the CLI: `export PARLAY_SERVER=http://localhost:4242`.
+  4. `send` / `history` — the send → stream → reply round-trip is the whole substrate.
+- Other verbs: `listen` (one-call agent enrolment), `alert` (broadcast), `parlay-spawn` (background agent as a live channel).
+- Voice path: herdr + herdr-web fork setup.
+- Worked two-agent example in [`examples/`](https://github.com/trillium/parlay/tree/main/examples) — README + sandbox.
+- Reach from phone: expose over a private network (Tailscale / LAN / tunnel), point `PARLAY_SERVER` at that address.
+
+## Honest caveats
+
+- Alpha, single-owner, sharp edges — works for me daily, not a polished product.
+- Chat API is unauthenticated by design — private network only, never a public tunnel/forwarded port.
+- Chat panel isn't public yet — Lavish-based, still rough; coming as a side panel under `packages/client/`.
+- Server and CLI are standalone today; the pretty panel is the gap.
+
+## Closing
+
+- Built for my needs; hope it works for yours.
+- Invitation: clone it, run the quickstart, see what breaks.
+- I'd genuinely like to see how people use this in their own setups.
+- Links: [github.com/trillium/parlay](https://github.com/trillium/parlay) · [`examples/`](https://github.com/trillium/parlay/tree/main/examples)
