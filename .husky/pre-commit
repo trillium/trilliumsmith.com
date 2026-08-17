@@ -1,1 +1,2 @@
+python3 scripts/mdx-comment-convert.py
 npx --no-install lint-staged
