@@ -7,6 +7,65 @@ summary: 'Parlay is a small event-driven command server for AI agents — voice-
 authors: ['trilliumsmith']
 ---
 
+### The full stack
+
+<Mermaid chart={`graph TD
+    Phone[Phone - Dictation] -->|Voice Input| HerdrWeb[herdr-web - My Fork]
+    HerdrWeb -->|Wraps Input| Herdr[herdr - Terminal Multiplexer]
+    Herdr -->|Sends Commands| ParlayServer[Parlay - Command Server]
+    ParlayServer -->|Routes to Agent| Agent[AI Agent]
+    Agent -->|Replies| ParlayServer
+    ParlayServer -->|SSE Stream| HerdrWeb
+    HerdrWeb -->|Displays| Phone
+    Tailscale[Tailscale] -.->|Private Network| Phone
+    Tailscale -.->|Private Network| ParlayServer
+
+    style Phone fill:#e1f5fe
+    style HerdrWeb fill:#fff3e0
+    style Herdr fill:#fff3e0
+    style ParlayServer fill:#e8f5e9
+    style Agent fill:#f3e5f5
+    style Tailscale fill:#fce4ec
+`} />
+
+### What each part does
+
+<Mermaid chart={`graph LR
+    Phone[Phone] -->|Dictates commands| HerdrWeb[herdr-web]
+    HerdrWeb -->|Wraps input box| Herdr[herdr]
+    Herdr -->|Terminal I/O| Parlay[Parlay Server]
+    Parlay -->|Evaluates commands| Agent[Agent Stream]
+
+    subgraph Phone Layer
+        Phone
+    end
+
+    subgraph herdr-web
+        HerdrWeb
+        Commands[Command Registry]
+    end
+
+    subgraph herdr
+        Herdr
+    end
+
+    subgraph Parlay Server
+        Parlay
+        SSE[SSE Stream]
+        JSONL[JSONL Event Files]
+    end
+
+    subgraph Agent Layer
+        Agent
+    end
+
+    style Phone fill:#e1f5fe
+    style HerdrWeb fill:#fff3e0
+    style Herdr fill:#fff3e0
+    style Parlay fill:#e8f5e9
+    style Agent fill:#f3e5f5
+`} />
+
 > [!NOTE]
 > **This article is a work in progress.** The content below is in draft state — sections may be incomplete, and diagrams are still being added. Check back for updates.
 
@@ -14,22 +73,22 @@ authors: ['trilliumsmith']
 
 ## TLDR
 
-Parlay is a multi tool. Mashing together event driven agent orchestration voice dictation And agent-to-agent communications. Today we will be taking a closer look at the voice dictation angle of parlay.
+Parlay is a multi tool. Mashing together event driven agent orchestration voice dictation and agent-to-agent communications. Today we will be taking a closer look at the voice dictation angle of parlay.
 
 If you'd rather jump right in, point your agent at the [implementation example document](https://github.com/trillium/parlay/tree/main/examples).
 
 # Table of Contents
 
-- The Story
-- What Parlay is (how it works)
-- Voice-first input
-- How to use this
-- The message bus
-- Event-driven spawning
-- The problem it solves
-- How to get started
-- Honest caveats
-- Closing
+- [The Story](#the-story)
+- [What Parlay is (how it works)](#what-parlay-is)
+- [Voice-first input](#voice-first-input)
+- [How to use this](#how-to-use-this)
+- [The message bus](#the-message-bus)
+- [Event-driven spawning](#event-driven-spawning)
+- [The problem it solves](#the-problem-it-solves)
+- [How to get started](#how-to-get-started)
+- [Honest caveats](#honest-caveats)
+- [Closing](#closing)
 
 ## The Story
 
@@ -74,11 +133,11 @@ In my personal configuration, this will now trigger `send` inside the input box 
 
 At the moment I personally primarily use this system via [my fork of herdr-web](https://github.com/trillium/herdr-web), which wraps the input box there with the input monitoring system. It contains the following commands:
 
-| Command | Action |
-| --- | --- |
-| `change inside input` | Clears the input |
-| `bravely`, `gravely`, `briefly` | Clears line ender word, submits |
-| `next` | Go to the next chat window |
+| Command                         | Action                            |
+| ------------------------------- | --------------------------------- |
+| `change inside input`           | Clears the input                  |
+| `bravely`, `gravely`, `briefly` | Clears line ender word, submits   |
+| `next`                          | Go to the next agent in herdr-web |
 
 That's it, and at the moment, it is enough. I expect to expand it in the future to do more things, but this gets me far enough along.
 

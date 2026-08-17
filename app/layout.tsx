@@ -2,16 +2,17 @@ import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
+import type { Metadata } from 'next'
 import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
+import Script from 'next/script'
+import { Analytics, type AnalyticsConfig } from 'pliny/analytics'
+import { type SearchConfig, SearchProvider } from 'pliny/search'
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
-import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
-import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
 import { CSPostHogProvider } from './providers'
+import { ThemeProviders } from './theme-providers'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -113,6 +114,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </ThemeProviders>
         </CSPostHogProvider>
       </body>
+      <Script
+        src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        strategy="afterInteractive"
+      />
     </html>
   )
 }
