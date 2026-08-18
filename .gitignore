@@ -53,3 +53,6 @@ spellchecker
 spellcheck-results.txt
 cspell-results.txt
 .env*.local
+
+# Local PAI store symlink (not available on Vercel)
+.beads
