@@ -3564,6 +3564,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@posthog/browser-common@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@posthog/browser-common@npm:0.5.0"
+  dependencies:
+    "@posthog/core": ^1.47.0
+    "@posthog/types": ^1.402.2
+  checksum: d877016b362f710e029d79c8b146b1d148e328f10a5d789909969553f1722f1f7ab8a0eee37a13dbdf1b4309c282ae3015db2d5060bde938b60200653d572dc6
+  languageName: node
+  linkType: hard
+
 "@posthog/core@npm:^1.46.7":
   version: 1.46.7
   resolution: "@posthog/core@npm:1.46.7"
@@ -3573,10 +3583,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@posthog/core@npm:^1.47.0, @posthog/core@npm:^1.48.3":
+  version: 1.48.3
+  resolution: "@posthog/core@npm:1.48.3"
+  dependencies:
+    "@posthog/types": ^1.405.0
+  checksum: a0b7639b98f9c90ebcda4c98cb0957d8c1a9712b1b680cf4b9c5a107eb297c9f367b49970d5a5015087b56c6044585c917c55362dacf05f231709ec7f0b659a9
+  languageName: node
+  linkType: hard
+
 "@posthog/types@npm:^1.401.0":
   version: 1.401.0
   resolution: "@posthog/types@npm:1.401.0"
   checksum: 5772f199a028b0cb2108c56d1932148241ab435fe4f88c74b9cbfd6d9289c8dd1c7a32bc2a0d0584dd268e8c8a4e1eae1faa768800a00e6332373cbad2c2af07
+  languageName: node
+  linkType: hard
+
+"@posthog/types@npm:^1.402.2, @posthog/types@npm:^1.405.0":
+  version: 1.405.0
+  resolution: "@posthog/types@npm:1.405.0"
+  checksum: 7d498ed953f671ff846ceffc183d48f10ddbc7e6d8472f93c1be1bed06881f37ce9b1737793e2979e497f7e59a877aefbc9830da0143f94442ed526ed56fe2cb
   languageName: node
   linkType: hard
 
@@ -4172,7 +4198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/trusted-types@npm:^2.0.2":
+"@types/trusted-types@npm:^2.0.2, @types/trusted-types@npm:^2.0.7":
   version: 2.0.7
   resolution: "@types/trusted-types@npm:2.0.7"
   checksum: 8e4202766a65877efcf5d5a41b7dd458480b36195e580a3b1085ad21e948bc417d55d6f8af1fd2a7ad008015d4117d5fdfe432731157da3c68678487174e4ba3
@@ -5060,10 +5086,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.38.1":
-  version: 3.39.0
-  resolution: "core-js@npm:3.39.0"
-  checksum: 7a3670e9a2a89e0a049daa288d742d09f6e16d27a8945c5e2ef6fc45dc57e5c4bc5db589da05947486f54ae978d14cf27bd3fb1db0b9907000a611e8af37355b
+"core-js@npm:^3.49.0":
+  version: 3.50.0
+  resolution: "core-js@npm:3.50.0"
+  checksum: 3a3a0330731fbb98bb47fd676d90f9208171d6eacb42f9e0eb962d18f521fee412a5301c8aca533f5c3add550034824517e764d7fd9f6d4269cbca421027c193
   languageName: node
   linkType: hard
 
@@ -5561,6 +5587,18 @@ __metadata:
   dependencies:
     domelementtype: ^2.3.0
   checksum: 0f58f4a6af63e6f3a4320aa446d28b5790a009018707bce2859dcb1d21144c7876482b5188395a188dfa974238c019e0a1e610d2fc269a12b2c192ea2b0b131c
+  languageName: node
+  linkType: hard
+
+"dompurify@npm:^3.4.13":
+  version: 3.4.13
+  resolution: "dompurify@npm:3.4.13"
+  dependencies:
+    "@types/trusted-types": ^2.0.7
+  dependenciesMeta:
+    "@types/trusted-types":
+      optional: true
+  checksum: e4d3c08e453521098557118ffaaa6e2ab42f9222edd57ab592b69946d76127973640df13a9c260da3cf89b6c525ccaa58bf398d0b3aff01c3b7bc3fa589b7260
   languageName: node
   linkType: hard
 
@@ -9767,15 +9805,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthog-js@npm:^1.155.2":
-  version: 1.194.4
-  resolution: "posthog-js@npm:1.194.4"
+"posthog-js@npm:latest":
+  version: 1.418.1
+  resolution: "posthog-js@npm:1.418.1"
   dependencies:
-    core-js: ^3.38.1
+    "@posthog/browser-common": ^0.5.0
+    "@posthog/core": ^1.48.3
+    "@posthog/types": ^1.405.0
+    core-js: ^3.49.0
+    dompurify: ^3.4.13
     fflate: ^0.4.8
-    preact: ^10.19.3
-    web-vitals: ^4.2.0
-  checksum: 428e1a3b5521d2084a1134492986528058ce45494318230a893385109a8036154ee9ae17cf920eb9ecf7f7d5cbf88846200e7e6da41c2905f016123b64f74a04
+    preact: ^10.29.3
+    query-selector-shadow-dom: ^1.0.1
+    web-vitals: ^5.3.0
+    web-vitals-soft-navs: "npm:web-vitals@6.0.0"
+  checksum: 3675efdcc882218277aed474499407cd4ce76732d5bdde49bb747905595594bb8973330ed7e4720346d32bda20a331623b886ba4be11bdb5432d692fffb5c530
   languageName: node
   linkType: hard
 
@@ -9793,10 +9837,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:^10.19.3":
-  version: 10.25.1
-  resolution: "preact@npm:10.25.1"
-  checksum: 7b31f82acfc5eaccc70c19b55ff2bc8edb3d636dfb84e254c9258871c69e1652876efe4bb3a5f21bf521386b001bc6c8831e535d41eecbe0f31c13a0e2a062a3
+"preact@npm:^10.29.3":
+  version: 10.29.8
+  resolution: "preact@npm:10.29.8"
+  peerDependencies:
+    preact-render-to-string: ">=5"
+  peerDependenciesMeta:
+    preact-render-to-string:
+      optional: true
+  checksum: 5a4774e8bce4ef5ebef5a3ef2358b47be6cd8b9b30132b1543d359efc90f8005a13506a75bfac6e9a044a614fa2a9def5f32fefd2c068f05221cf737283f1397
   languageName: node
   linkType: hard
 
@@ -9877,6 +9926,13 @@ __metadata:
   dependencies:
     side-channel: ^1.0.6
   checksum: 86c5059146955fab76624e95771031541328c171b1d63d48a7ac3b1fdffe262faf8bc5fcadc1684e6f3da3ec87a8dedc8c0009792aceb20c5e94dc34cf468bb9
+  languageName: node
+  linkType: hard
+
+"query-selector-shadow-dom@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "query-selector-shadow-dom@npm:1.0.1"
+  checksum: 8ab1cdd5e1927b583503b590165d66770fb91c87ac28b50a43596b755db3792c0e506250f46d0af97f0064a5cc12a1de449fd5c2cfcadf18b0880a4d8aecebbd
   languageName: node
   linkType: hard
 
@@ -11641,7 +11697,7 @@ __metadata:
     next-themes: ^0.3.0
     pliny: 0.4.1
     postcss: ^8.4.24
-    posthog-js: ^1.155.2
+    posthog-js: latest
     posthog-node: ^5.34.7
     prettier: ^3.8.3
     react: 19.2.4
@@ -12390,10 +12446,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-vitals@npm:^4.2.0":
-  version: 4.2.4
-  resolution: "web-vitals@npm:4.2.4"
-  checksum: 5b3ffe1db33f23aebf8cc8560ac574401a95939baafde5841835c1bb1c01f9a2478442f319f77aa0d7914739fc2f6b020c5d5b128c16c5c77ca6be2f9dfbbde6
+"web-vitals-soft-navs@npm:web-vitals@6.0.0":
+  version: 6.0.0
+  resolution: "web-vitals@npm:6.0.0"
+  checksum: 2605159b9286488fcd375167dc737d31dcb10c2f7924ec1be93a329f4cefe7588504b7c6422164d15aa1560687f76b29148965c6ed052d2011ef87a5fdf2dbe0
+  languageName: node
+  linkType: hard
+
+"web-vitals@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "web-vitals@npm:5.3.0"
+  checksum: 0140e84c1ecf42e4f3097f451c3d8d97141b1eb3d9756efa80c1d9c0cc1b087d451280603e5bc12d83af078b91979e685823a9c567db0c13bad30600b42eb24f
   languageName: node
   linkType: hard
 

@@ -42,7 +42,7 @@
     "next-themes": "^0.3.0",
     "pliny": "0.4.1",
     "postcss": "^8.4.24",
-    "posthog-js": "^1.155.2",
+    "posthog-js": "latest",
     "posthog-node": "^5.34.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
