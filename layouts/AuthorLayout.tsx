@@ -1,7 +1,8 @@
-import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
-import SocialIcon from '@/components/social-icons'
+import type { ReactNode } from 'react'
 import Image from '@/components/Image'
+import ScheduleCTA from '@/components/ScheduleCTA'
+import SocialIcon from '@/components/social-icons'
 
 interface Props {
   children: ReactNode
@@ -47,6 +48,10 @@ export default function AuthorLayout({ children, content }: Props) {
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
             {children}
+            <ScheduleCTA
+              className="not-prose mt-8"
+              description="Open to collaborations, contract work, and interesting conversations."
+            />
           </div>
         </div>
       </div>
