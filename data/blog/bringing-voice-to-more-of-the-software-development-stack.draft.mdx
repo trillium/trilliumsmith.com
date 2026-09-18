@@ -1,87 +1,214 @@
 ---
-title: "Bringing Voice to More of the Software Development Stack"
+title: 'ChatGPT Voice as a Way to Think Through Software Development Work'
 date: '2026-09-17'
 tags: ['voice', 'ai-agents', 'mcp', 'beads', 'tooling']
 draft: true
-summary: "The loop between talking to an AI and the work actually getting saved: MCP access to a durable document store, pasted write-back, inbox beads as the handoff, and voice moving into more of the dev stack."
+summary: "This week's experiment: ChatGPT Voice as a way to think through software development work — with MCP access to a durable store so a conversation becomes the layer between a loosely formed idea and the systems that act on it."
 authors: ['trilliumsmith']
 ---
 
-I've been building toward the same thing from two directions. From one side: voice control of my machine. On my laptop that's Talon Voice, and I've pushed it far enough that firing a sanctioned action hovers around two fixed words, with a handful of core verbs at one. Something like `stow` captures a thought into my federated task and notes stores in a single utterance. It was not long ago that the baseline for the same action was ten to thirty words of prose, or switching to a terminal and typing it.
+This week's experiment: ChatGPT Voice as a way to think through software development work.
 
-From the other side: AI agents that actually do the work. The problem there was never the agents. It was that everything lived in disconnected contexts I had to chase one by one, and whatever came out of a session sat still once the session ended. I've written before about that being the bottleneck — the human in the loop, not the agent.
+I've used voice for software development for years. On a desktop it is great, but away from my regular development workspace it is a bit lacking.
 
-This post is about the piece in the middle. Voice on one side, agents on the other, and the durable store between them that keeps a thought from evaporating when the conversation is over.
+Unless we're working through problems through casual conversation. Then a tool like ChatGPT really shines.
 
-## The voice layer I already had
+I wasn't trying to make another voice command. I wanted to see whether a voice conversation could become a useful part of the workflow itself.
 
-The Talon side is the part I can talk about most concretely, because it's measured. A set of voice plugins I run on my laptop give me one-utterance capture and fetch against my federated stores (`stow`), agent focus and messaging (`crew`), pane and tab navigation (`crew_nav`), and grabbing on-screen text by fragment (`snag`). The measured outcome was a median of two fixed words to fire a sanctioned action, one word for the core verbs, up from a ten-to-thirty-word baseline.
+A couple of weeks ago, I talked through the architecture of Parlay with an AI agent. The back-and-forth worked well for me, and I was able to do the whole thing on a long car ride.
 
-Voice also reaches my phone. Parlay, the small command server I built, takes any text as a command trigger, and on a phone the text comes from the device's own dictation — no custom speech engine, just the input method that already ships on the device. The flow is: dictate on the phone, the input box posts every edit to the command server, the server matches a command and routes the cleaned text to an agent, and the reply streams back down the same channel.
+> "I've been thinking of an idea for a system I want to build. Ask me about it."
 
-That part works. The part that didn't was what happened after the text stopped being text.
+Instead of starting with a specification, I could start with a rough idea, answer questions, explore pieces of it, and gradually arrive at something concrete.
 
-## The assistant as a connected client, not a chat island
+This worked great, but there wasn't an easy way to get the content out of ChatGPT. Do I give it a directive to give me a Markdown block? Do I make a tool to read the database of the Codex app and mine it from there? (No, don't do this. It doesn't sync fast enough.)
 
-The piece that made this click: stop treating the AI assistant as a fresh empty context every time, and give it read and write access to the same stores my other agents work from. Then the conversation is a refinement surface over the actual state of the work, not a bolt-on that guesses.
+Ultimately, there needed to be a way to get information out of ChatGPT reliably.
 
-The assistant connects to my document store through a single MCP gateway. The gateway fronts a relay I built over my Beads store, which is a Dolt-backed, versioned, SQL-sourced document store with the markdown output as a derived human-readable render. The relay exposes a read/write tool surface: `project_resolve` for turning natural language into the right project, `capture` for cheaply persisting an idea or a friction point or a correction, `task_create_or_update` with duplicate detection, `dispatch_request`, and `verify` to check whether work someone is talking about already exists and where it's at.
+The answer was obvious: MCP servers.
 
-The design rule I keep repeating, because it keeps the whole thing honest: the relay is a read/write communication and routing agent, never an executor. The stores are authoritative. The relay reads them, routes intent, and writes structured state or dispatch requests for external agents — and when current state matters, it polls the stores rather than keeping its own copy.
+I just tried as many other things as possible first because I don't like paying for features if I don't have to.
 
-One practical lesson from running this: the assistant's view of the toolset goes stale. The gateway's bearer token is server-side only, never inside the assistant's own connection, and any change to the tooling wraps up with a refresh of the assistant's connector and a re-check of its tool list. Stale cache is the number one false bug.
+## A quick perusal of dead ends
 
-## Write-back that outlives the conversation
+One attempt was using ordinary URLs as a tiny communication channel.
 
-Voice gets the thought captured; the store keeps it around. The next problem was the write path in the other direction: how the outcome of a conversation gets written back into the store without manual surgery.
+ChatGPT can fetch a URL I give it, but that wasn't enough to turn URL fetching into the elaborate read/write interface I wanted. I briefly explored whether I could abuse GET requests enough to masquerade as something closer to a POST.
 
-On the Beads side, the write path is a CLI call, never a raw file write — agents write through the store's own interface, and humans browse the derived markdown in Obsidian.
+Damn.
 
-On the ChatGPT side, I built a parser for the after-action of a conversation. The assistant lays out what it thinks a bead should say as a `## {bead-id}` section in a pasted inbox block, and the inbox bead is labeled `source:paste`. The parser validates that the bead id exists, rejects mismatched ids, preserves the surrounding bead fields, hash-checks before and after, and applies the wording as UNCONFIRMED — never auto-confirmed, always with a provenance comment. The acceptance test was: pasted write-back flows inbox to bead update without manual text surgery.
+An example of the funnel-served URLs ChatGPT was hitting. Every route returned a token and instructions, and the host is the same Tailscale funnel my bridge already sits behind:
 
-`{/* REV: "after-action of a conversation" — does this match the framing you'd use? The parser mechanics below are documented; the framing sentence is reconstruction from the task spec. */}`
+```text
+https://macbook.hippo-tilapia.ts.net/probe/t1/a
+https://macbook.hippo-tilapia.ts.net/probe/t1/b?x=1
+https://macbook.hippo-tilapia.ts.net/probe/t2?value=BETA
+https://macbook.hippo-tilapia.ts.net/probe/t3/b
+https://macbook.hippo-tilapia.ts.net/probe/a
+https://macbook.hippo-tilapia.ts.net/probe/f
+```
 
-## Inbox beads are the handoff
+I also experimented with reading the chats that the Codex app syncs locally. I ran the app in dev mode to get Chrome DevTools access and poked around at whether I could build a sidecar that watched the conversation.
 
-The moment a capture is a bead in a store, handing it off gets boring in the good way. An inbox bead is assigned to a worker, decomposed into sequenced child tasks, and dispatched to an execution agent — with dispatch held on gating where needed, and the bead staying open until the outcome actually lands. This post is a live example: it started as an inbox bead, got dispatched to a worker on its own branch, and stays open until the PR lands.
+The problem was synchronization. It wasn't fast or reliable enough for the kind of back-and-forth I wanted.
 
-The same shape applies to decisions. A "this needs your review" is a durable, gated item in its own queue rather than a sentence in a chat — so it doesn't evaporate when you look away.
+The launch and the read were the straightforward parts:
 
-The loop, as I've written it down: note in, bead filed, delegate, execute, report, and link back to the originating note.
+```sh
+# relaunch the desktop app with a loopback Chrome DevTools port
+/Applications/ChatGPT.app/Contents/MacOS/ChatGPT \
+  --remote-debugging-address=127.0.0.1 \
+  --remote-debugging-port=9222
+```
 
-## Choosing what gets seen and what gets said
+```sh
+# the local conversation catalogue the app keeps
+sqlite3 -readonly ~/.codex/sqlite/codex-dev.db '
+SELECT thread_id, display_title, datetime(source_updated_at, "unixepoch")
+FROM local_thread_catalog WHERE source_kind = "chatgpt"'
+```
 
-One habit from my streaming setup: a "Private" OBS scene that covers the desktop during sensitive operations — typing API keys, editing env files, password prompts — bound to a Talon voice command and a hotkey for an instant swap. And on the input side, I've noted that some mediums give weaker visual feedback than a laptop (the phone being the big one), so those mediums should lean on auditory feedback to compensate.
+That experiment is probably another blog post.
 
-`{/* REV: the draft's "selective audio/visual" section may have meant choosing what the AI assistant can see/hear (screen share / camera during the conversation). Nothing in my documented stores covers that; I've limited this section to the OBS masking and phone-auditory-feedback items above. If you did mean assistant-side selective input, rewrite this section from your experience. */}`
+## The thing that actually worked
 
-## Extending voice further down the stack
+I gave ChatGPT an MCP server.
 
-The pattern extends past capture. My Talon setup is itself exposed as MCP tools — `talon_mimic`, `talon_restart`, `talon_getScope`, `talon_getRecentLogs` — which means agents can drive the voice layer the same way they drive anything else, through plain subprocess calls. Voice commands already reach the terminal multiplexer. There's a voice-driven prose review loop where a single command opens a review session for rewriting text one at a time.
+More specifically, I gave it tools for accessing the same durable store that my other agents already use.
 
-The end state I'm heading for: the voice surface, the agent, and the store all read and write the same thing, so a thought can go from spoken to stored to executed without me restating it at each hop.
+I use Beads for this. The important part isn't really Beads itself. It's that I have a connected store containing things like projects, tasks, notes, resume information, and inbox items.
 
-`{/* REV: opening and closing framings above are reconstructed from the task spec + documented pieces; confirm they match the draft you had in mind. */}`
+Once ChatGPT could query that store, I could tell it to look up the actual thing we were discussing instead of manually feeding the context into the conversation.
 
-## Honest caveats
+My resume was one of the first places this became useful.
 
-Everything here is alpha, single-owner, and built around my exact workflow. The gateways, the relay surface, the write-back parser, the voice plugins — they work for me daily, and several are still changing under me. If some of this reads like a chain of taped-together experiments, that's because it is. That's also why it's worth writing down: the pieces are generic enough that the pattern — voice in, durable store in the middle, agents out the other side — is the part that should age well.
+I could say which experience or bullet I wanted to discuss, tell ChatGPT to query it through the MCP, and then talk through it. If we needed more context, it could fetch the connected information.
 
-## Questions
+That changed the role of the conversation.
 
-If you've tried voice-driven development, are connecting an assistant to your own durable stores, or have thoughts on where this pattern breaks, I'd genuinely like to hear it. Reach me on Bluesky, or book a slot on my [Talon Voice help calendar](https://cal.com/trillium/talon-voice-help).
+I could start with a vague idea, query what already existed, talk about it, do some research, and refine it.
+
+Then came the more important part: writing back.
+
+Once something became concrete enough that I wanted to keep it, I could explicitly tell ChatGPT to use the MCP to persist it.
+
+The chat became a place where I could work something out rather than the place where the resulting information had to live.
+
+The Beads Bridge MCP server is rough. It's built for me. If you truly must use it, go ahead.
+
+The implementation isn't really the thing I wanted to highlight.
+
+The fact that this worked is.
+
+The Beads Bridge MCP server has no public home — it lives on my machine and fronts my local Beads store. Here's what the plugin settings look like:
+
+![Beads Bridge MCP server plugin settings](/static/images/beads-bridge-plugin-settings.png)
+
+## The conversation before the agent
+
+This also gave me an intermediate step that I didn't really have before.
+
+Normally, if I have an idea for something an agent should do, I have to formulate the task well enough to hand it to the agent.
+
+Now I can talk about it first.
+
+Sometimes ChatGPT asks questions. Sometimes I tell it to fetch something from the store. Sometimes we discover that what I initially thought I wanted isn't actually the useful part.
+
+Once the idea is sufficiently refined, I tell ChatGPT to create an inbox bead.
+
+That bead is durable. Another agent monitors the inbox and can take it from there.
+
+This is the part I've found particularly useful.
+
+ChatGPT doesn't need to be the agent doing the work. It can be the thing I talk to before the work is handed off.
+
+## Why voice matters here
+
+I tend to scan text quickly, and I have limited patience for reading large amounts of AI-generated prose.
+
+Having information spoken back to me makes me pay attention to it differently.
+
+But long audio responses have exactly the same problem. They become mind-numbing too.
+
+What has worked better is keeping ChatGPT in a conversational-partner mode.
+
+I talk.
+
+It asks a short follow-up question.
+
+I answer.
+
+If we need information, I tell it to fetch it.
+
+Then we keep going.
+
+The assistant's job in that mode isn't to constantly summarize what I've said or explain why each thing is important. Those responses interrupt my thought process.
+
+Its job is to ask the question that gets the next piece of information out of me without breaking the thought cycle.
+
+Then, at a particular point, I might ask for a summary.
+
+And if that summary contains something useful, I can tell it to write it back to the store.
+
+## Caveats
+
+There is still some plumbing here.
+
+One particularly annoying example: when I change the MCP server's tools, ChatGPT doesn't necessarily know that anything changed.
+
+I have to manually refresh the MCP tool definitions inside ChatGPT from an annoyingly hard-to-find panel containing a refresh button.
+
+![ChatGPT MCP tool refresh UI](/static/images/chatgpt-mcp-refresh.png)
+
+I've lost enough time to stale tool definitions that this is now one of the first things I check when something appears mysteriously broken.
+
+The rest of this is alpha too. The MCP server is built around my workflow, the store is mine, and I've been changing pieces while actively using them.
+
+That's fine. I'm more interested in the interaction pattern than the particular implementation.
+
+## What this enables
+
+The interesting part of connecting ChatGPT Voice to MCP wasn't that I could issue commands by voice.
+
+I could already issue commands by voice.
+
+What I didn't have was a conversational layer between a loosely formed idea and the systems that eventually act on it.
+
+Giving ChatGPT access to the durable store created that layer.
+
+I can start with something incomplete.
+
+We can talk about it.
+
+When we need actual context, I can tell ChatGPT to fetch it.
+
+We can refine the idea against what is actually in the system rather than whatever I happen to remember.
+
+And when we've arrived at something worth keeping, I can tell it to make that result durable.
+
+From there, another agent can act on it.
+
+The conversation doesn't need to contain the entire workflow. It just needs to help me get from the thought I have now to something worth keeping.
+
+That's the part I want to keep experimenting with.
+
+## Links
+
+- [Talon Voice, the Start of the Journey](/blog/talon-voice-the-start-of-the-journey)
+- [Voice Accessibility: My Journey with Talon Voice and Public Speaking](/blog/talon-voice-continued)
+- [Using Talon’s mimic( ) function](/blog/piping-mimic-commands-to-talon)
+- [Parlay: Voice-First Agent Orchestration](/blog/parlay-a-chat-server-for-your-ai-agents)
+- [Building with AI Agents: A Modern Development Workflow](/blog/agentic-workflows-modern-development)
+- [Beads](https://github.com/gastownhall/beads)
+- [Model Context Protocol](https://modelcontextprotocol.io)
+- Beads Bridge — no public link to give; it lives on my machine and fronts my local Beads store.
+
+{/* TODO: add a ChatGPT Voice link here once a reachable URL is verified — chatgpt.com/voice/ was not returnable when checked. */}
 
 {/* Working notes — resolve before publish:
-
-Narrative review needed (reconstructed passages — verify against the missing draft):
-1. Opening "two frontiers" framing and the sentence "The problem there was never the agents..." — framed the middle-piece thesis; the draft's own opening is lost, confirm.
-2. "The piece that made this click" + the "stop treating the assistant as a fresh empty context" premise — motivation inferred from the MCP gateway + stale-cache docs, not from a recorded statement.
-3. "Voice gets the thought captured; the store keeps it around." + "The next problem was the write path..." connective framing in the write-back section.
-4. Whole "Choosing what gets seen and what gets said" section — no documented evidence for an assistant-side camera/screen-share toggle; only OBS "Private" scene masking and phone-auditory-feedback are documented.
-5. "The end state I'm heading for..." — aspiration, inferred.
-6. Closing "Questions" invitation + "book a slot" CTA pattern borrowed from the talon-voice-continued post.
-
-Facts I could NOT include (not documented anywhere I can cite, do not add without your input): actual spoken ChatGPT voice-mode sessions; MCP access to the markdown files specifically (the MCP surface fronts the Beads/Dolt store; markdown is only a derived render); any claim about what the AI assistant can see/hear during a conversation.
-
-Also flag: the "after-action of a conversation" framing marker above — decided to keep, remove if it reads wrong.
+- URLs in the "quick perusal of dead ends" section are the real probe routes from beads-bridge (src/routes/probe.ts), served on the Tailscale funnel.
+- The Codex snippet is the real launch flag from chatgpt-transcript-bridge (scripts/launch-chatgpt-cdp.sh) and the real local catalogue query (research/codex-local-thread-storage.md).
+- Beads Bridge intentionally has no link (no public repo / no git remote) — described as local-only prose per constraints.
+- Both screenshots are real captures; confirm they show only what their captions claim.
+- Confirmed: Beads repo 200, modelcontextprotocol.io 200. ChatGPT Voice URL not verified (403) — left as TODO.
 */}
