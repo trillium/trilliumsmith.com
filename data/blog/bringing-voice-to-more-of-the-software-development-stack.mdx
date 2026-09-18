@@ -37,15 +37,10 @@ ChatGPT can fetch a URL I give it, but that wasn't enough to turn URL fetching i
 
 Damn.
 
-An example of the funnel-served URLs ChatGPT was hitting. Every route returned a token and instructions, and the host is the same Tailscale funnel my bridge already sits behind:
+An example of the kind of funnel-served URL ChatGPT was hitting. Every route returned a token and instructions, served from the same Tailscale funnel my bridge sits behind (host redacted to an example):
 
 ```text
-https://macbook.hippo-tilapia.ts.net/probe/t1/a
-https://macbook.hippo-tilapia.ts.net/probe/t1/b?x=1
-https://macbook.hippo-tilapia.ts.net/probe/t2?value=BETA
-https://macbook.hippo-tilapia.ts.net/probe/t3/b
-https://macbook.hippo-tilapia.ts.net/probe/a
-https://macbook.hippo-tilapia.ts.net/probe/f
+https://macbook.example-tailscale-url.ts.net/mcp
 ```
 
 I also experimented with reading the chats that the Codex app syncs locally. I ran the app in dev mode to get Chrome DevTools access and poked around at whether I could build a sidecar that watched the conversation.
@@ -206,7 +201,7 @@ That's the part I want to keep experimenting with.
 {/* TODO: add a ChatGPT Voice link here once a reachable URL is verified — chatgpt.com/voice/ was not returnable when checked. */}
 
 {/* Working notes — resolve before publish:
-- URLs in the "quick perusal of dead ends" section are the real probe routes from beads-bridge (src/routes/probe.ts), served on the Tailscale funnel.
+- URLs in the "quick perusal of dead ends" section are redacted to an example host; the real route shapes live in beads-bridge (src/routes/probe.ts), served on the Tailscale funnel.
 - The Codex snippet is the real launch flag from chatgpt-transcript-bridge (scripts/launch-chatgpt-cdp.sh) and the real local catalogue query (research/codex-local-thread-storage.md).
 - Beads Bridge is now public at trillium/beads-bridge — linked inline and in Links.
 - Both screenshots are real captures; confirm they show only what their captions claim.
