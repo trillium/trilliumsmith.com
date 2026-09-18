@@ -1,4 +1,9 @@
 {
+  "accessibility": 1,
+  "software-development": 1,
+  "linux": 1,
+  "voice-interfaces": 1,
+  "developer-experience": 1,
   "productivity": 1,
   "web-apps": 2,
   "tools": 1,
@@ -6,11 +11,15 @@
   "paired-programming": 1,
   "networking": 1,
   "professional-development": 1,
+  "parlay": 1,
+  "ai-agents": 1,
+  "voice": 1,
+  "chat": 1,
+  "tooling": 1,
   "talon-voice": 5,
   "terminal": 1,
   "remote-desktop": 1,
   "public-speaking": 1,
   "nextjs": 1,
-  "booking-system": 1,
-  "devlog": 1
+  "booking-system": 1
 }
