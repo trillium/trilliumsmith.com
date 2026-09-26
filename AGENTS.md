@@ -24,7 +24,7 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 
 - `components/Image.tsx` is the single choke point for images. Cards, post banners, author cards/avatars, and blog images in `.mdx` posts all resolve through it, so a change there affects all of them. Those post images arrive via the `pliny` plugin `remarkImgToJsx`, which rewrites markdown image nodes to `<Image>` and resolves through `components/MDXComponents.tsx`.
 - `remarkImgToJsx` only converts images that exist under `public/`; anything else stays a plain `<img>` with no placeholder.
-- A `fill` image must not be wrapped in the placeholder's positioning `span`, or it collapses to zero height. The span is only correct for fixed-size images, and it shrink-wraps (`inline-block`) and must carry the caller's `className` so rounding and sizing still apply.
+- A `fill` image must not be wrapped in the placeholder's positioning `span`, or it collapses to zero height. The span is only correct for fixed-size images, and it shrink-wraps (`inline-block`) with hidden overflow while both inner images carry the caller's `className` so rounding and sizing still apply.
 
 ## Deploy
 

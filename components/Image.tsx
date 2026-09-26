@@ -1,7 +1,7 @@
 'use client'
 
 import NextImage, { type ImageProps } from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import placeholders from '@/data/image-placeholders.json'
 
 const basePath = process.env.BASE_PATH
@@ -11,6 +11,9 @@ const FADE = 'opacity 0.4s ease'
 
 const Image = ({ src, alt, onLoad, style, fill, className, ...rest }: ImageProps) => {
   const [loaded, setLoaded] = useState(false)
+  useEffect(() => {
+    setLoaded(false)
+  }, [src])
   const fullSrc = `${basePath || ''}${src}`
   const placeholder = typeof src === 'string' ? placeholderMap[src] : undefined
 
