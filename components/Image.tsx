@@ -70,7 +70,9 @@ const Image = ({ src, alt, onLoad, style, fill, className, ...rest }: ImageProps
   }
 
   return (
-    <span style={{ position: 'relative', display: 'inline-block', lineHeight: 0, overflow: 'hidden' }}>
+    <span
+      style={{ position: 'relative', display: 'inline-block', lineHeight: 0, overflow: 'hidden' }}
+    >
       {/* biome-ignore lint/performance/noImgElement: placeholder must be a raw img, not next/image */}
       <img
         src={placeholder}
