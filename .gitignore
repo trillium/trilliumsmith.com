@@ -19,6 +19,9 @@
 public/sitemap.xml
 .vercel
 
+# typescript incremental build cache
+tsconfig.tsbuildinfo
+
 # production
 /build
 *.xml
