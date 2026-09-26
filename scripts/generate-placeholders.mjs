@@ -39,7 +39,7 @@ async function collect(dir) {
   return files
 }
 
-const files = await collect(path.join(publicDir, 'static'))
+const files = (await collect(path.join(publicDir, 'static'))).sort()
 const placeholders = {}
 
 for (const file of files) {
