@@ -11,6 +11,7 @@ const FADE = 'opacity 0.4s ease'
 
 const Image = ({ src, alt, onLoad, style, fill, className, ...rest }: ImageProps) => {
   const [loaded, setLoaded] = useState(false)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: must reset on src change (PostBanner prev/next reuses the mounted Image)
   useEffect(() => {
     setLoaded(false)
   }, [src])
