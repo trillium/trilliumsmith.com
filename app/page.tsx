@@ -1,7 +1,8 @@
-import { sortPosts, allCoreContent, coreContent } from 'pliny/utils/contentlayer'
-import { Authors, allBlogs, allAuthors } from 'contentlayer/generated'
-import Main from './Main'
+import { type Authors, allAuthors, allBlogs } from 'contentlayer/generated'
+import { allCoreContent, coreContent, sortPosts } from 'pliny/utils/contentlayer'
 import AuthorCard from '@/components/AuthorCard'
+import ContactCTA from '@/components/ui/ContactCTA'
+import Main from './Main'
 
 export default async function Page() {
   const sortedPosts = sortPosts(allBlogs)
@@ -11,8 +12,10 @@ export default async function Page() {
 
   return (
     <>
+      <ContactCTA variant="compact" className="mt-6" />
       <AuthorCard content={mainContent} />
       <Main posts={posts} />
+      <ContactCTA variant="full" className="my-12" />
     </>
   )
 }
