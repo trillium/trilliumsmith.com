@@ -9,9 +9,6 @@ export interface LoadInPhoto {
   alt: string
 }
 
-// Opaque cover colour, matching the frame background so covers blend into it in both themes.
-export const COVER = 'bg-gray-200 dark:bg-gray-800'
-
 type State = 'idle' | 'armed' | 'playing'
 
 interface FrameProps {

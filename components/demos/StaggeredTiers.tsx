@@ -1,4 +1,5 @@
-import LoadInStage, { COVER, type LoadInPhoto } from './LoadInStage'
+import LoadInStage, { type LoadInPhoto } from './LoadInStage'
+import { COVER } from './loadInCover'
 import styles from './StaggeredTiers.module.css'
 
 const TIERS = 8
