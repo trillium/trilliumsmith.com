@@ -1,0 +1,43 @@
+/* Default: everything visible, so no-JS, old browsers and reduced-motion users lose nothing. */
+.rule {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+  transform-origin: 0 50%;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    .rule {
+      animation: grow linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(2rem);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes grow {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+}

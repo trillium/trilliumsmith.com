@@ -1,0 +1,54 @@
+@property --demo-spot-r {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.root {
+  --demo-spot-r: 0px;
+  --demo-spot-x: 50%;
+  --demo-spot-y: 50%;
+  position: relative;
+  overflow: hidden;
+  transition: --demo-spot-r 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.root[data-active="true"] {
+  --demo-spot-r: 160px;
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #14b8a6;
+  -webkit-mask-image: radial-gradient(
+    circle at var(--demo-spot-x) var(--demo-spot-y),
+    #000 var(--demo-spot-r),
+    transparent calc(var(--demo-spot-r) + 40px)
+  );
+  mask-image: radial-gradient(
+    circle at var(--demo-spot-x) var(--demo-spot-y),
+    #000 var(--demo-spot-r),
+    transparent calc(var(--demo-spot-r) + 40px)
+  );
+}
+
+:global(.dark) .pattern {
+  color: #5eead4;
+}
+
+/* No hover (touch): there is no cursor to follow, so show the pattern faintly and statically. */
+@media (hover: none), (pointer: coarse) {
+  .pattern {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+}
