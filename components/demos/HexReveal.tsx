@@ -1,5 +1,6 @@
 import styles from './HexReveal.module.css'
-import LoadInStage, { COVER, type LoadInPhoto } from './LoadInStage'
+import LoadInStage, { type LoadInPhoto } from './LoadInStage'
+import { COVER } from './loadInCover'
 
 // Pointy-top hexagons tiling a 4:3 frame (100 x 75 units), staggered rows, sized from COLS.
 const COLS = 8

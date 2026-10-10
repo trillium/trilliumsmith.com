@@ -1,5 +1,6 @@
 import styles from './BoxDissolve.module.css'
-import LoadInStage, { COVER, type LoadInPhoto } from './LoadInStage'
+import LoadInStage, { type LoadInPhoto } from './LoadInStage'
+import { COVER } from './loadInCover'
 
 const COLS = 16
 const ROWS = 12
