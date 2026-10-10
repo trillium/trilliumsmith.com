@@ -2,7 +2,7 @@ export interface DemoMeta {
   slug: string
   title: string
   summary: string
-  group: 'Backdrop & photos' | 'Scrollbar / text effect candidates'
+  group: 'Backdrop & photos' | 'Image load-in effects' | 'Scrollbar / text effect candidates'
 }
 
 export const demos: DemoMeta[] = [
@@ -31,6 +31,48 @@ export const demos: DemoMeta[] = [
     summary:
       'The pixelated placeholder that cross-fades to the real image. Already live on the site.',
     group: 'Backdrop & photos',
+  },
+  {
+    slug: 'hex-reveal',
+    title: 'Hexagon reveal',
+    summary: 'Honeycomb cells open from the center outward.',
+    group: 'Image load-in effects',
+  },
+  {
+    slug: 'staggered-tiers',
+    title: 'Staggered tiers',
+    summary: 'Horizontal tiers slide off one after another, alternating sides.',
+    group: 'Image load-in effects',
+  },
+  {
+    slug: 'triangle-shards',
+    title: 'Triangle shards',
+    summary: 'A triangle mosaic flips away in random order.',
+    group: 'Image load-in effects',
+  },
+  {
+    slug: 'box-dissolve',
+    title: 'Box dissolve',
+    summary: 'The pixel boxes fade out in random order.',
+    group: 'Image load-in effects',
+  },
+  {
+    slug: 'blinds',
+    title: 'Blinds',
+    summary: 'Vertical strips open like window blinds.',
+    group: 'Image load-in effects',
+  },
+  {
+    slug: 'circle-iris',
+    title: 'Circle iris',
+    summary: 'A circle grows from the center.',
+    group: 'Image load-in effects',
+  },
+  {
+    slug: 'blur-to-sharp',
+    title: 'Blur to sharp',
+    summary: 'Starts blurred and slightly enlarged, then settles sharp.',
+    group: 'Image load-in effects',
   },
   {
     slug: 'cursor-scramble',

@@ -1,0 +1,31 @@
+.tier {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+:global([data-state="playing"]) .fromLeft {
+  animation: out-left 0.7s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+
+:global([data-state="playing"]) .fromRight {
+  animation: out-right 0.7s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+
+@keyframes out-left {
+  to {
+    transform: translateX(-101%);
+  }
+}
+
+@keyframes out-right {
+  to {
+    transform: translateX(101%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tier {
+    display: none;
+  }
+}

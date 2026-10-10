@@ -1,0 +1,21 @@
+.hex {
+  position: absolute;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+:global([data-state="playing"]) .hex {
+  animation: hex-out 0.55s ease-in both;
+}
+
+@keyframes hex-out {
+  to {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hex {
+    display: none;
+  }
+}
