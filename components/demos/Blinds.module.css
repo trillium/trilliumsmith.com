@@ -1,0 +1,46 @@
+@property --open {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+.blinds {
+  --open: 12.5%;
+}
+
+:global([data-state="armed"]) .blinds,
+:global([data-state="playing"]) .blinds {
+  --open: 0%;
+  -webkit-mask-image: repeating-linear-gradient(
+    90deg,
+    #000 0,
+    #000 var(--open),
+    transparent var(--open),
+    transparent 12.5%
+  );
+  mask-image: repeating-linear-gradient(
+    90deg,
+    #000 0,
+    #000 var(--open),
+    transparent var(--open),
+    transparent 12.5%
+  );
+}
+
+:global([data-state="playing"]) .blinds {
+  animation: open-blinds 1.1s ease-in-out both;
+}
+
+@keyframes open-blinds {
+  to {
+    --open: 12.5%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-state]) .blinds {
+    animation: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

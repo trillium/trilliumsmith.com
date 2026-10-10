@@ -1,0 +1,27 @@
+:global([data-state="armed"]) .blur {
+  filter: blur(28px);
+  transform: scale(1.12);
+}
+
+:global([data-state="playing"]) .blur {
+  animation: sharpen 1.3s ease-out both;
+}
+
+@keyframes sharpen {
+  from {
+    filter: blur(28px);
+    transform: scale(1.12);
+  }
+  to {
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-state]) .blur {
+    animation: none;
+    filter: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,23 @@
+:global([data-state="armed"]) .iris {
+  clip-path: circle(0% at 50% 50%);
+}
+
+:global([data-state="playing"]) .iris {
+  animation: iris-open 1.2s cubic-bezier(0.5, 0, 0.2, 1) both;
+}
+
+@keyframes iris-open {
+  from {
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    clip-path: circle(75% at 50% 50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-state]) .iris {
+    animation: none;
+    clip-path: none;
+  }
+}
