@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import Image from '@/components/Image'
 import styles from './LoadInStage.module.css'
 
@@ -27,7 +27,7 @@ function Frame({ photo, imageClass, cover, randomize }: FrameProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<State>('idle')
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current
     if (!el) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
