@@ -1,0 +1,102 @@
+.base {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  background: linear-gradient(120deg, #fce7f3, #e0f2fe 50%, #fef3c7);
+}
+
+:global(.dark) .base {
+  background: linear-gradient(120deg, #1e1b4b, #042f2e 50%, #3b0764);
+}
+
+.blob {
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.7;
+  will-change: transform;
+  animation: drift 28s ease-in-out infinite alternate;
+}
+
+:global(.dark) .blob {
+  opacity: 0.5;
+}
+
+.a {
+  top: -15%;
+  left: -10%;
+  background: radial-gradient(circle, #f9a8d4, transparent 65%);
+}
+.b {
+  top: 10%;
+  right: -20%;
+  background: radial-gradient(circle, #7dd3fc, transparent 65%);
+  animation-duration: 34s;
+  animation-delay: -9s;
+}
+.c {
+  bottom: -25%;
+  left: 10%;
+  background: radial-gradient(circle, #fcd34d, transparent 65%);
+  animation-duration: 40s;
+  animation-delay: -17s;
+}
+.d {
+  bottom: -10%;
+  right: 5%;
+  background: radial-gradient(circle, #5eead4, transparent 65%);
+  animation-duration: 31s;
+  animation-delay: -4s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(10%, 8%, 0) scale(1.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none;
+  }
+}
+
+/* Frosted glass surface. Falls back to a more opaque panel where blur is unavailable
+   or the user asks for more contrast / less transparency. */
+.glass {
+  background: rgb(255 255 255 / 0.6);
+  border: 1px solid rgb(255 255 255 / 0.5);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+:global(.dark) .glass {
+  background: rgb(17 24 39 / 0.5);
+  border-color: rgb(255 255 255 / 0.1);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgb(255 255 255 / 0.9);
+  }
+  :global(.dark) .glass {
+    background: rgb(17 24 39 / 0.92);
+  }
+}
+
+@media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: rgb(255 255 255 / 0.95);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  :global(.dark) .glass {
+    background: rgb(17 24 39 / 0.95);
+  }
+}

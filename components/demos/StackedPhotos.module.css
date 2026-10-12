@@ -1,0 +1,60 @@
+/* Default (also the fallback): a plain vertical gallery. */
+.stage {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.25);
+}
+
+/* Scroll-driven version: needs scroll timelines, a wide viewport, and motion allowed. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .wrap {
+      height: 400vh;
+      view-timeline: --stack block;
+    }
+
+    .stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: block;
+      overflow: hidden;
+    }
+
+    .photo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(34rem, 80%);
+      margin-left: calc(min(34rem, 80%) / -2);
+      margin-top: calc(min(34rem, 80%) * 3 / 8 * -1);
+      animation: land linear both;
+      animation-timeline: --stack;
+      /* Pinned while the wrapper covers 20%-80% of its timeline; photos land one after another. */
+      animation-range: cover calc(22% + var(--i) * 13%) cover calc(35% + var(--i) * 13%);
+    }
+
+    .photo:nth-child(odd) {
+      --tilt: -4deg;
+    }
+    .photo:nth-child(even) {
+      --tilt: 4deg;
+    }
+
+    @keyframes land {
+      from {
+        transform: translateY(110vh) rotate(0deg);
+      }
+      to {
+        transform: translateY(0) rotate(var(--tilt));
+      }
+    }
+  }
+}

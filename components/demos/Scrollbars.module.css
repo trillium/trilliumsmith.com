@@ -1,0 +1,30 @@
+/* Themed scrollbar: colors only, so the scrollbar width the layout relies on is untouched. */
+.themed {
+  --sb-thumb: #14b8a6;
+  --sb-track: #f0fdfa;
+  scrollbar-color: var(--sb-thumb) var(--sb-track);
+}
+
+:global(.dark) .themed {
+  --sb-thumb: #2dd4bf;
+  --sb-track: #0f172a;
+}
+
+.thin {
+  scrollbar-width: thin;
+}
+
+/* WebKit/Blink fallback for older browsers that lack scrollbar-color. */
+@supports not (scrollbar-color: auto) {
+  .themed::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .themed::-webkit-scrollbar-track {
+    background: var(--sb-track);
+  }
+  .themed::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb);
+    border-radius: 9999px;
+  }
+}
