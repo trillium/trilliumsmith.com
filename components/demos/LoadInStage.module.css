@@ -1,0 +1,9 @@
+/* Covers exist only while an effect is armed or playing; idle (no JS, reduced motion) shows the image. */
+.cover {
+  display: none;
+}
+
+:global([data-state="armed"]) .cover,
+:global([data-state="playing"]) .cover {
+  display: block;
+}

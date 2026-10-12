@@ -1,0 +1,21 @@
+.box {
+  position: absolute;
+  --d: 0s;
+}
+
+:global([data-state="playing"]) .box {
+  animation: box-out 0.35s ease-out both;
+  animation-delay: var(--d);
+}
+
+@keyframes box-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .box {
+    display: none;
+  }
+}
