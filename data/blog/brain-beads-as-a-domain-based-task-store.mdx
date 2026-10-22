@@ -1,5 +1,5 @@
 ---
-title: 'Brain: Beads as a domain based task store'
+title: 'Brain: Beads as a domain-based task store'
 date: '2026-10-22'
 tags: ['beads', 'ai-agents', 'brain', 'tooling', 'knowledge']
 draft: false
@@ -35,7 +35,16 @@ Three kinds of bead, because "generated" hides a difference:
 - Agent-authored: an agent wrote real content under instruction (findings, tasks, handoffs, ChatGPT-by-voice captures).
 - Human-authored: I typed it.
 
-As of 2026-10-22, of 31,001 beads: 58% procedural, 5% write-test probes, 8% marked agent-authored, 28% unmarked (me or an agent at my CLI, which the data can't separate). So human-authored is at most 28%.
+As of 2026-10-22, across 31,001 beads:
+
+| Kind | Beads | Share |
+| --- | ---: | ---: |
+| Procedural | 18,139 | 58% |
+| Agent-authored (marked) | 2,554 | 8% |
+| Unmarked (me or an agent at my CLI; the data can't separate them) | 8,772 | 28% |
+| Write-test probes | 1,536 | 5% |
+
+So human-authored is at most 28%.
 
 ### How I've been using it
 
@@ -48,6 +57,8 @@ This lets me create dependencies across projects and scopes, creating links to k
 Exposing beads to an mcp tool lets me use chat gpt by voice, discuss and curate tasks, then launch them via trigger a build request to a primary agent like The Mayor of Gastown or Firstmate.
 
 ### Numbers (live count)
+
+Here is what that looks like at scale.
 
 - 26,088 beads across 61 prefixes, since 2026-03-18 (about 7 months). 18,543 open, 7,485 closed. 9,284 comments, 5,621 links between beads.
 - About 12,100 are machine-generated: lifespan (7,390, one bead per agent session, written automatically) and guard (4,740). About 14,000 were written deliberately.
