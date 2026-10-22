@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brain store map</title>
+<style>
+:root{--bg:#0f1419;--fg:#e6edf3;--mute:#8795a1;--panel:#171e26;--line:#2a3541;--proc:#8795a1;--agent:#ffb454;--human:#6ee7ff}
+@media (prefers-color-scheme:light){:root{--bg:#f6f8fa;--fg:#1f2328;--mute:#59636e;--panel:#fff;--line:#d0d7de;--proc:#8c959f;--agent:#bc4c00;--human:#0969da}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+header,main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:1.4rem;margin:.2em 0}p{margin:.3em 0;color:var(--mute)}
+.bar{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:8px 0}
+label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block}
+.wrap{display:grid;grid-template-columns:1fr 280px;gap:12px}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}}
+svg{width:100%;height:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;touch-action:manipulation}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;min-height:120px}
+.node{cursor:pointer}.node:focus{outline:2px solid var(--human)}
+text{fill:var(--fg);font-size:11px;pointer-events:none}
+table{width:100%;border-collapse:collapse;font-size:13px}td{padding:2px 0}td:last-child{text-align:right}
+canvas{width:100%;height:90px;margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+<h1>Brain store map</h1>
+<p id="meta">Loading…</p>
+<div class="bar">
+<label><input type="checkbox" id="showProc" checked><span class="sw" style="background:var(--proc)"></span>Procedural</label>
+<label><input type="checkbox" id="showAgent" checked><span class="sw" style="background:var(--agent)"></span>Agent-authored</label>
+<label><input type="checkbox" id="showHuman" checked><span class="sw" style="background:var(--human)"></span>Unmarked (human or agent)</label>
+<label><input type="checkbox" id="showLabel" checked>Label links (project:, resume:)</label>
+</div>
+</header>
+<main>
+<div class="wrap">
+<svg id="g" viewBox="0 0 900 640" role="img" aria-label="Stores as nodes, sized by bead count, joined by cross-store links"></svg>
+<div class="panel" id="info" aria-live="polite"><p>Select a store.</p></div>
+</div>
+<p>Aggregate counts only: no titles, bodies, labels, owners or ids. Kind is inferred from store name and labels, because brain does not record who wrote a bead. Write-test probes are excluded.</p>
+</main>
+<script>
+fetch('brain-map.json').then(r=>r.json()).then(D=>{
+const W=900,H=640,svg=document.getElementById('g'),NS='http://www.w3.org/2000/svg';
+const mk=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
+const fmt=n=>n.toLocaleString('en-US');
+document.getElementById('meta').textContent=`${fmt(D.totals.beads)} beads, ${D.totals.stores} stores, ${fmt(D.totals.cross_store_links)} cross-store links. As of ${D.as_of}.`;
+const nodes=D.stores.map((s,i)=>({i,s,r:6+Math.sqrt(s.total)*0.9,x:W/2+Math.cos(i*2.4)*(60+i*7),y:H/2+Math.sin(i*2.4)*(60+i*5),vx:0,vy:0}));
+const links=[];
+D.links.forEach(([a,b,n])=>{if(a!==b)links.push({a,b,n,t:'dep'})});
+D.label_links.forEach(([a,b,n])=>{if(a!==b)links.push({a,b,n,t:'label'})});
+const st={proc:true,agent:true,human:true,label:true};
+const dom=n=>{const s=n.s,m=Math.max(s.procedural,s.agent,s.unmarked);return m===s.procedural?'var(--proc)':m===s.agent?'var(--agent)':'var(--human)'};
+const gl=mk('g',{}),gn=mk('g',{});svg.append(gl,gn);
+const le=links.map(l=>{const e=mk('line',{stroke:l.t==='label'?'var(--agent)':'var(--mute)','stroke-opacity':.45,'stroke-dasharray':l.t==='label'?'4 3':'0','stroke-width':Math.min(1+Math.log2(1+l.n),7)});gl.append(e);return e});
+const ne=nodes.map(n=>{const g=mk('g',{class:'node',tabindex:0,role:'button','aria-label':`${n.s.name}, ${n.s.total} beads`});
+g.append(mk('circle',{r:n.r,fill:dom(n),'fill-opacity':.85,stroke:'var(--bg)','stroke-width':1.5}));
+if(n.s.total>150){const t=mk('text',{'text-anchor':'middle',dy:'0.35em'});t.textContent=n.s.name;g.append(t)}
+const pick=()=>show(n);g.addEventListener('click',pick);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}});
+gn.append(g);return g});
+function show(n){const s=n.s,nb=[];links.forEach(l=>{if(l.a===n.i)nb.push([nodes[l.b].s.name,l.n,l.t]);if(l.b===n.i)nb.push([nodes[l.a].s.name,l.n,l.t])});
+nb.sort((x,y)=>y[1]-x[1]);
+document.getElementById('info').innerHTML=`<strong>${s.name}</strong><table><tr><td>Beads</td><td>${fmt(s.total)}</td></tr><tr><td>Procedural</td><td>${fmt(s.procedural)}</td></tr><tr><td>Agent-authored</td><td>${fmt(s.agent)}</td></tr><tr><td>Unmarked</td><td>${fmt(s.unmarked)}</td></tr></table><p>Linked stores</p><table>${nb.slice(0,8).map(x=>`<tr><td>${x[0]}${x[2]==='label'?' (label)':''}</td><td>${fmt(x[1])}</td></tr>`).join('')||'<tr><td>none</td><td></td></tr>'}</table>`}
+function tick(){
+for(let k=0;k<2;k++){
+for(const a of nodes){a.vx+=(W/2-a.x)*0.002;a.vy+=(H/2-a.y)*0.002}
+for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j];let dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy+.01,d=Math.sqrt(d2),m=a.r+b.r+14;
+const f=(d<m?(m-d)*.05:0)+900/d2;a.vx+=dx/d*f;a.vy+=dy/d*f;b.vx-=dx/d*f;b.vy-=dy/d*f}
+for(const l of links){if(l.t==='label'&&!st.label)continue;const a=nodes[l.a],b=nodes[l.b],dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy)+.01,f=(d-90)*.004;a.vx+=dx/d*f;a.vy+=dy/d*f;b.vx-=dx/d*f;b.vy-=dy/d*f}
+for(const n of nodes){n.vx*=.8;n.vy*=.8;n.x=Math.max(n.r,Math.min(W-n.r,n.x+n.vx));n.y=Math.max(n.r,Math.min(H-n.r,n.y+n.vy))}}
+}
+function draw(){
+links.forEach((l,i)=>{const a=nodes[l.a],b=nodes[l.b],e=le[i];e.setAttribute('x1',a.x);e.setAttribute('y1',a.y);e.setAttribute('x2',b.x);e.setAttribute('y2',b.y);e.style.display=(l.t==='label'&&!st.label)?'none':''});
+nodes.forEach((n,i)=>{const k=n.s.total||1,vis=(n.s.procedural/k>=0.5?st.proc:n.s.agent/k>=0.5?st.agent:st.human)||n.s.total<1;ne[i].setAttribute('transform',`translate(${n.x},${n.y})`);ne[i].style.opacity=vis?1:.12})}
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduced){for(let i=0;i<300;i++)tick();draw()}else{let f=0;(function loop(){tick();draw();if(f++<400)requestAnimationFrame(loop)})()}
+[['showProc','proc'],['showAgent','agent'],['showHuman','human'],['showLabel','label']].forEach(([id,k])=>document.getElementById(id).addEventListener('change',e=>{st[k]=e.target.checked;draw()}));
+}).catch(e=>{document.getElementById('meta').textContent='Could not load brain-map.json'});
+</script>
+</body>
+</html>
