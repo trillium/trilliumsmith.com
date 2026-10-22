@@ -27,6 +27,27 @@ Brain: Beads as a domain-based task store.
 
 One database, many named stores, e.g. "task, brain, robot, status, project".
 
+<Mermaid chart={`graph TD
+    Registry[Store registry - one file] --> Wrappers[One command per store]
+    Wrappers --> Stores
+    subgraph Stores[One shared Dolt server]
+      Task[(task)]
+      Brain[(brain)]
+      Robots[(robots)]
+      Project[(project)]
+      More[(... 58 more)]
+    end
+    Stores --> MD[Markdown export folder per store]
+    Task <-->|cross-store links| Brain
+    Brain <-->|cross-store links| Project
+    Bridge[beads-bridge MCP server] --> Stores
+    Voice[ChatGPT by voice] --> Bridge
+    Voice -->|build request| Agent[Primary agent: Mayor of Gastown or Firstmate]
+    style Stores fill:#e1f5fe,stroke:#0288d1
+    style Voice fill:#fff3e0
+    style Agent fill:#fff3e0
+`} />
+
 I've been using this and am up to roughly 20,000 beads, some manually generated and others generated as part of tool errors or misbehaving agent actions that need resolution. Agents are empowered to use the tools to record problems, and make new stores if they see fit.
 
 Three kinds of bead, because "generated" hides a difference:
@@ -39,18 +60,40 @@ As of 2026-10-22, across 31,001 beads:
 
 | Kind | Beads | Share |
 | --- | ---: | ---: |
-| Procedural | 18,139 | 58% |
+| Procedural | 18,139 | 59% |
 | Agent-authored (marked) | 2,554 | 8% |
 | Unmarked (me or an agent at my CLI; the data can't separate them) | 8,772 | 28% |
 | Write-test probes | 1,536 | 5% |
 
 So human-authored is at most 28%.
 
+<Mermaid chart={`pie showData title Beads by kind (31,001, 2026-10-22)
+    "Procedural" : 18139
+    "Agent-authored (marked)" : 2554
+    "Unmarked (human or agent)" : 8772
+    "Write-test probes" : 1536
+`} />
+
 ### How I've been using it
 
 I've been using Brain as a project management and documentation store. Generalized abilities are P0 beads (e.g. agent orchestration); an instance of that ability is a P1 bead (Gastown would be here, among other examples).
 
 This lets me create dependencies across projects and scopes, creating links to knowledge or to tasks that need to be done.
+
+Cross-store links between the busiest stores (dependency links, counted per pair, 2026-10-22):
+
+<Mermaid chart={`graph LR
+    brain ---|41| task
+    brain ---|26| project
+    career ---|12| resume_bullets
+    project ---|8| runbooks
+    external_llm_tasks ---|6| resume_bullets
+    career ---|6| project
+    robots ---|4| task
+    project ---|4| resume_bullets
+`} />
+
+Label links (`project:<name>`) point into the project store: task 251, fleet 221, resume_bullets 91, inbox 80, person 47, runbooks 41.
 
 ### The productivity unlock
 
