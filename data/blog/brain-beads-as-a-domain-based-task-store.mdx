@@ -1,0 +1,83 @@
+---
+title: 'Brain: Beads as a domain-based task store'
+date: '2026-10-22'
+tags: ['beads', 'ai-agents', 'brain', 'tooling', 'knowledge']
+draft: false
+summary: 'One database, many named stores: an extension of beads I have used for 7 months as a personal information tracker for agent based records.'
+authors: ['trilliumsmith']
+---
+
+Hey folks,
+
+I have been using an extension of beads for the last 7 months. I thought it was a good use case and wanted to share and hear your thoughts.
+
+### The problem
+
+I wanted agent-native tools to be a personal information tracker, with the ability to store my thoughts big or small at any time. Beads was the right shape but was limited to a single project or domain. I wanted it to grow to take over any agent-based record that needed to be saved.
+
+### Why extend beads
+
+Beads were locked to one project. I wanted the ability to link projects and ideas, and to have cross-store dependencies. That is the main thing that `brain` provides: cross-linked stores, so that records can be interdependent.
+
+### The solution
+
+One database with multiple prefixes per domain type, allowed to interconnect in any way necessary.
+
+Brain: Beads as a domain-based task store.
+
+One database, many named stores, e.g. "task, brain, robot, status, project".
+
+I've been using this and am up to roughly 20,000 beads, some manually generated and others generated as part of tool errors or misbehaving agent actions that need resolution. Agents are empowered to use the tools to record problems, and make new stores if they see fit.
+
+Three kinds of bead, because "generated" hides a difference:
+
+- Procedural: a formula writes it, fixed title shape, no judgment (session trails, guard hook decisions, dispatch "State change" records, pane-blocked alerts).
+- Agent-authored: an agent wrote real content under instruction (findings, tasks, handoffs, ChatGPT-by-voice captures).
+- Human-authored: I typed it.
+
+As of 2026-10-22, across 31,001 beads:
+
+| Kind | Beads | Share |
+| --- | ---: | ---: |
+| Procedural | 18,139 | 58% |
+| Agent-authored (marked) | 2,554 | 8% |
+| Unmarked (me or an agent at my CLI; the data can't separate them) | 8,772 | 28% |
+| Write-test probes | 1,536 | 5% |
+
+So human-authored is at most 28%.
+
+### How I've been using it
+
+I've been using Brain as a project management and documentation store. Generalized abilities are P0 beads (e.g. agent orchestration); an instance of that ability is a P1 bead (Gastown would be here, among other examples).
+
+This lets me create dependencies across projects and scopes, creating links to knowledge or to tasks that need to be done.
+
+### The productivity unlock
+
+Exposing beads to an mcp tool lets me use chat gpt by voice, discuss and curate tasks, then launch them via trigger a build request to a primary agent like The Mayor of Gastown or Firstmate.
+
+### Numbers (live count)
+
+Here is what that looks like at scale.
+
+- 26,088 beads across 61 prefixes, since 2026-03-18 (about 7 months). 18,543 open, 7,485 closed. 9,284 comments, 5,621 links between beads.
+- About 12,100 are machine-generated: lifespan (7,390, one bead per agent session, written automatically) and guard (4,740). About 14,000 were written deliberately.
+- Recount 2026-10-22 (31,001 beads): 18,139 procedural, 1,536 write-test probes, 2,554 marked agent-authored, 8,772 unmarked. Procedural also covers 3,893 task "State change" records, 416 pane alerts and the hook-captured rows in brain.
+- The record doesn't store who wrote a bead (the author field is the git user name on 28,318 of them), so the human share is an upper bound until a provenance field exists.
+- task is the busiest authored store: 6,725 total, 958 created in the last 7 days.
+- About half of task is procedural bookkeeping (about 4,300 of 8,570 task beads today are "State change" records and pane alerts), so the busiest store by hand-authored work is smaller than that count suggests.
+- robots (agent-detected tooling defects): 1,096 recorded, 211 in the last week.
+- inbox: 570 captured, 6 still open.
+
+### Differences from beads
+
+- Shape: one shared Dolt server, one database per store, one prefix per store, one markdown export folder per store.
+- Brain is a Go fork of beads that changes the unit of ownership from the repository to the domain.
+- A new store is warranted only when a domain needs its own prefix, namespace and export root (`brain stores create`).
+- Cross-store links are `project:<name>` and `resume:<slug>` labels.
+
+### Honest costs
+
+Rebase maintenance against upstream, divergent release lines, and the README drifting from the registry.
+
+Also: no per-bead record of who or what wrote it, so human versus agent versus procedural has to be inferred from store names and labels. About 5% of the store is write-test probes.
