@@ -52,36 +52,54 @@ So human-authored is at most 28%.
 
 ### How I've been using it
 
-I've been using Brain as a project management and documentation store. Generalized abilities are P0 beads (e.g. agent orchestration); an instance of that ability is a P1 bead (Gastown would be here, among other examples).
+I've been using Brain as a project management and documentation store. Generalized abilities are P0 beads; an instance of that ability is a P1 bead underneath it. For example:
 
-This lets me create dependencies across projects and scopes, creating links to knowledge or to tasks that need to be done.
+- `project-mqis` (P0): *Phone-to-computer input: voice, dictation and keyboard*, the general ability.
+  - `project-n9xv` (P1): *Talon ASR app*, one concrete implementation, with its own knowledge beads beneath it: a current-state snapshot and an intended-architecture draft.
+  - `project-12j`: *SayType*, another implementation of the same ability.
+
+Because every store lives in one database, links can cross projects and scopes:
+
+- SayType (`project-12j`) is blocked by `project-ie2n` (*parrot-kit*, the shared Swift package for my iPhone apps) and by `project-x1zj` (*phone-reach*, the Tailscale bridge that installs builds on my phone).
+- Its speech-to-actions design (`project-12j.1`) points to a full design report that lives in a different store, the knowledge store: `brain-wa889`.
+
+So opening SayType tells me what it is part of, what it depends on, and where its research lives.
 
 ### The productivity unlock
 
-Exposing beads to an mcp tool lets me use chat gpt by voice, discuss and curate tasks, then launch them via trigger a build request to a primary agent like The Mayor of Gastown or Firstmate.
+Exposing my beads through an MCP server ([beads-bridge](https://github.com/trillium/beads-bridge)) lets me use ChatGPT by voice to discuss and curate tasks, then launch them by triggering a build request to a primary agent like the Mayor of Gastown or First Mate.
 
-### Numbers (live count)
+### By the numbers
 
-Here is what that looks like at scale.
+<img src="/static/images/brain/stores-composition-light.svg" alt="Stacked bar of 38,016 beads: 60% automated bookkeeping, 9% agent-authored, 31% hand-written or other" className="block w-full dark:hidden" />
+<img src="/static/images/brain/stores-composition-dark.svg" alt="Stacked bar of 38,016 beads: 60% automated bookkeeping, 9% agent-authored, 31% hand-written or other" className="hidden w-full dark:block" />
 
-- 26,088 beads across 61 prefixes, since 2026-03-18 (about 7 months). 18,543 open, 7,485 closed. 9,284 comments, 5,621 links between beads.
-- About 12,100 are machine-generated: lifespan (7,390, one bead per agent session, written automatically) and guard (4,740). About 14,000 were written deliberately.
-- Recount 2026-10-22 (31,001 beads): 18,139 procedural, 1,536 write-test probes, 2,554 marked agent-authored, 8,772 unmarked. Procedural also covers 3,893 task "State change" records, 416 pane alerts and the hook-captured rows in brain.
-- The record doesn't store who wrote a bead (the author field is the git user name on 28,318 of them), so the human share is an upper bound until a provenance field exists.
-- task is the busiest authored store: 6,725 total, 958 created in the last 7 days.
-- About half of task is procedural bookkeeping (about 4,300 of 8,570 task beads today are "State change" records and pane alerts), so the busiest store by hand-authored work is smaller than that count suggests.
-- robots (agent-detected tooling defects): 1,096 recorded, 211 in the last week.
-- inbox: 570 captured, 6 still open.
+Most beads are machine bookkeeping; the few thousand written deliberately are the ones that matter, and the store keeps both without getting in the way.
+
+Beads don't record their author, so the hand-written share is an upper bound.
+
+<img src="/static/images/brain/growth-light.svg" alt="Line chart of total beads per week from March to November 2026 rising to about 38,000, with separate lines for the task, brain, project, inbox and robots stores" className="block w-full dark:hidden" />
+<img src="/static/images/brain/growth-dark.svg" alt="Line chart of total beads per week from March to November 2026 rising to about 38,000, with separate lines for the task, brain, project, inbox and robots stores" className="hidden w-full dark:block" />
+
+It scaled from zero to roughly 38,000 beads without changing how I use it.
 
 ### Differences from beads
 
-- Shape: one shared Dolt server, one database per store, one prefix per store, one markdown export folder per store.
-- Brain is a Go fork of beads that changes the unit of ownership from the repository to the domain.
-- A new store is warranted only when a domain needs its own prefix, namespace and export root (`brain stores create`).
-- Cross-store links are `project:<name>` and `resume:<slug>` labels.
+Brain is a Go fork of Beads that moves the unit of ownership from the repository to the domain. The cost is maintaining a fork: I rebase onto each Beads release.
 
-### Honest costs
+| | Beads | Brain |
+|---|---|---|
+| **What a store belongs to** | A code repository | A domain (tasks, knowledge, projects, inbox…) |
+| **Storage** | A database per repo by default | One shared Dolt server, one database per store |
+| **IDs** | One prefix per repo | One prefix per store (`project-`, `brain-`, `inbox-`…) |
+| **Exports** | A data file in the repo | One markdown export folder per store |
+| **Adding one** | Initialise it in a new repo | `brain stores create`, only when a domain needs its own prefix, namespace and export folder |
+| **Linking across** | Within one repo | Across stores, with `project:<name>` and `resume:<slug>` labels |
 
-Rebase maintenance against upstream, divergent release lines, and the README drifting from the registry.
+### Wrapping up
 
-Also: no per-bead record of who or what wrote it, so human versus agent versus procedural has to be inferred from store names and labels. About 5% of the store is write-test probes.
+What started as a small request to Beads, letting one tool answer to different names, turned into the way I organise almost everything: one database, a store per area of my life and work, and links that cross between them. Combined with a voice agent that can read and write those stores, it means I can plan and curate work from anywhere and hand it straight to agents to build.
+
+If you're already using Beads, you don't need my fork to try the idea: run Beads under a second name for a second area of your work and see whether keeping them apart but linked helps you the way it helped me.
+
+I'd love to hear how you organise your own agent work, and whether a shared, multi-store setup like this would be useful in Beads itself.
