@@ -98,6 +98,14 @@ const speakingData: SpeakingEvent[] = [
     ],
   },
   {
+    event: 'Torc',
+    date: '2025-09-10',
+    role: 'speaker',
+    title: 'Torc Talon Voice demo',
+    topic: 'Talon Voice demo for the Torc developer community.',
+    note: 'No public recording.',
+  },
+  {
     event: 'Home Assistant Community Day Los Angeles',
     date: '2025-05-24',
     role: 'speaker',
@@ -134,6 +142,22 @@ const speakingData: SpeakingEvent[] = [
       {
         label: 'Write-up',
         href: '/blog/talon-voice-continued',
+      },
+    ],
+  },
+  {
+    event: 'LA DevOps',
+    date: '2025-02-20',
+    role: 'speaker',
+    where: "O'Briens Irish Pub, Santa Monica",
+    title: 'Voice Driven Computing with Talon Voice',
+    topic:
+      'First public talk: a hands-free tour of voice-driven computing, at a joint session with ClickHouse.',
+    note: 'First talk.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://www.meetup.com/meetup-group-ZZQWJLTm/events/305880749/',
       },
     ],
   },
