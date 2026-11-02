@@ -38,6 +38,21 @@ const speakingData: SpeakingEvent[] = [
     ],
   },
   {
+    event: 'Software Crafters Montréal',
+    date: '2026-10-20',
+    role: 'speaker',
+    where: 'Online',
+    title: 'What voice accessibility looks like in 2026',
+    topic: 'How I control my computer by voice, including for coding.',
+    note: 'No public recording.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://guild.host/events/online-what-voice-accessibility-0j4bzr',
+      },
+    ],
+  },
+  {
     event: 'Nicky T Online',
     date: '2026-10-09',
     role: 'speaker',
