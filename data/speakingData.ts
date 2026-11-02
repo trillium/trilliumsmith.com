@@ -98,6 +98,32 @@ const speakingData: SpeakingEvent[] = [
     ],
   },
   {
+    event: 'Torc',
+    date: '2025-09-10',
+    role: 'speaker',
+    title: 'Torc Talon Voice demo',
+    topic: 'Talon Voice demo for the Torc developer community.',
+    note: 'No public recording.',
+  },
+  {
+    event: 'Home Assistant Community Day Los Angeles',
+    date: '2025-05-24',
+    role: 'speaker',
+    where: 'The Metaphor Club, Leimert Park, Los Angeles',
+    topic: 'Informal Talon Voice demo for the local Home Assistant community.',
+    note: 'No public recording.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://luma.com/636o9yv1',
+      },
+      {
+        label: 'Event repo',
+        href: 'https://github.com/gr2m/home-assistant-community-day-los-angeles',
+      },
+    ],
+  },
+  {
     event: 'Code & Coffee: A Virtual Coffee Conference',
     date: '2025-04-25',
     role: 'speaker',
@@ -116,6 +142,22 @@ const speakingData: SpeakingEvent[] = [
       {
         label: 'Write-up',
         href: '/blog/talon-voice-continued',
+      },
+    ],
+  },
+  {
+    event: 'LA DevOps',
+    date: '2025-02-20',
+    role: 'speaker',
+    where: "O'Briens Irish Pub, Santa Monica",
+    title: 'Voice Driven Computing with Talon Voice',
+    topic:
+      'First public talk: a hands-free tour of voice-driven computing, at a joint session with ClickHouse.',
+    note: 'First talk.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://www.meetup.com/meetup-group-ZZQWJLTm/events/305880749/',
       },
     ],
   },
