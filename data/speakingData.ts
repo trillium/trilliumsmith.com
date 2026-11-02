@@ -23,6 +23,36 @@ export interface SpeakingEvent {
 
 const speakingData: SpeakingEvent[] = [
   {
+    event: 'LA DevOps',
+    date: '2026-10-29',
+    role: 'speaker',
+    where: "O'Briens Irish Pub, Santa Monica",
+    title: 'Wake Wakey Returns: What Voice Coding Looks Like in 2026',
+    topic: 'What voice coding looks like in 2026.',
+    note: 'No public recording.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://www.meetup.com/ladevops/events/317079372/',
+      },
+    ],
+  },
+  {
+    event: 'Nicky T Online',
+    date: '2026-10-09',
+    role: 'speaker',
+    where: 'Online (livestream hosted by Nick Taylor)',
+    title: 'Voice Driven Development',
+    topic:
+      'Live demo of voice-driven development with Talon Voice, Cursorless, Rango, dictation and phone-driven agents.',
+    links: [
+      {
+        label: 'Recording',
+        href: 'https://www.youtube.com/watch?v=Xg1b1NbOicI',
+      },
+    ],
+  },
+  {
     event: 'OpenClaw LA',
     date: '2026-10-14',
     role: 'speaker',
