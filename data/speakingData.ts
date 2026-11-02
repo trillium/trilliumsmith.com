@@ -98,6 +98,24 @@ const speakingData: SpeakingEvent[] = [
     ],
   },
   {
+    event: 'Home Assistant Community Day Los Angeles',
+    date: '2025-05-24',
+    role: 'speaker',
+    where: 'The Metaphor Club, Leimert Park, Los Angeles',
+    topic: 'Informal Talon Voice demo for the local Home Assistant community.',
+    note: 'No public recording.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://luma.com/636o9yv1',
+      },
+      {
+        label: 'Event repo',
+        href: 'https://github.com/gr2m/home-assistant-community-day-los-angeles',
+      },
+    ],
+  },
+  {
     event: 'Code & Coffee: A Virtual Coffee Conference',
     date: '2025-04-25',
     role: 'speaker',
