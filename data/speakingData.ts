@@ -84,6 +84,20 @@ const speakingData: SpeakingEvent[] = [
     note: 'No public recording.',
   },
   {
+    event: 'AI Tinkerers Los Angeles',
+    date: '2026-08-06',
+    role: 'speaker',
+    where: 'Venice, Los Angeles',
+    title: 'Voice First Development: Writing Code by Voice from Anywhere',
+    topic: 'Main-stage talk at the monthly builder meetup and live demos.',
+    links: [
+      {
+        label: 'Event page',
+        href: 'https://la.aitinkerers.org/p/ai-tinkerers-la-august-6-builder-meetup-live-demos',
+      },
+    ],
+  },
+  {
     event: 'Code & Coffee: A Virtual Coffee Conference',
     date: '2025-04-25',
     role: 'speaker',
