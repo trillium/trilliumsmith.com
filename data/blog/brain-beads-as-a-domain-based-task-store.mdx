@@ -19,6 +19,10 @@ I wanted agent-native tools to be a personal information tracker, with the abili
 
 Beads were locked to one project. I wanted the ability to link projects and ideas, and to have cross-store dependencies. That is the main thing that `brain` provides: cross-linked stores, so that records can be interdependent.
 
+### How it started
+
+This whole suite started with one of my first suggestions to Beads. In February 2026 I proposed letting `bd` run under different names, each pointing at its own store, so AI agents could tell my task lists apart ([beads#1594](https://github.com/gastownhall/beads/pull/1594)). Steve Yegge shipped a lighter version of the idea the same day as the `BD_NAME` setting, noting that the use case "directly led to the fix." That small change — one tool, many named stores — is what grew into Brain and its family of domain stores: project, inbox, runbooks and the rest.
+
 ### The solution
 
 One database with multiple prefixes per domain type, allowed to interconnect in any way necessary.
